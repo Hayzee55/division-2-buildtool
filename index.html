@@ -71,123 +71,16 @@
             right: 20px;
             z-index: 100;
         }
-        .counter {
-            display: inline-block;
-            margin-left: 10px;
-            font-size: 16px;
-        }
-        .notification {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            background: #4CAF50;
-            color: white;
-            border-radius: 5px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 100;
-        }
-        .color-picker {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .color-option {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: transform 0.2s;
-        }
-        .color-option:hover {
-            transform: scale(1.1);
-        }
-        .color-option.active {
-            border-color: white;
-        }
-        .dark-mode .color-option.active {
-            border-color: white;
-        }
-        .light-mode .color-option.active {
-            border-color: black;
-        }
-        #text-output {
-            min-height: 100px;
-            border: 1px solid;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-        .dark-mode #text-output {
-            border-color: #babfc4;
-            background: #1a1a1a;
-        }
-        .light-mode #text-output {
-            border-color: #ddd;
-            background: #f9f9f9;
-        }
     </style>
 </head>
 <body>
     <button class="btn toggle-btn" aria-label="Toggle Dark/Light Mode" onclick="toggleDarkMode()">Toggle Light Mode</button>
-    
-    <div class="container">
-        <h1>Interactive Buttons</h1>
-        
-        <div class="button-row">
-            <button class="btn" id="counter-btn" aria-label="Count Clicks">Count Clicks <span class="counter" id="click-counter">0</span></button>
-            <button class="btn" id="notification-btn" aria-label="Show Notification">Show Notification</button>
-            <button class="btn" id="reset-btn" aria-label="Reset All">Reset All</button>
-        </div>
-        
-        <h2>Text Controls</h2>
-        <div class="button-row">
-            <button class="btn" id="add-text-btn" aria-label="Add Sample Text">Add Sample Text</button>
-            <button class="btn" id="clear-text-btn" aria-label="Clear Text">Clear Text</button>
-            <button class="btn" id="uppercase-btn" aria-label="Convert to Uppercase">UPPERCASE</button>
-            <button class="btn" id="lowercase-btn" aria-label="Convert to Lowercase">lowercase</button>
-        </div>
-        
-        <div id="text-output">Your text will appear here...</div>
-        
-        <h2>Change Accent Color</h2>
-        <div class="color-picker" id="color-picker">
-            <div class="color-option active" style="background-color: #4CAF50;" data-color="#4CAF50"></div>
-            <div class="color-option" style="background-color: #2196F3;" data-color="#2196F3"></div>
-            <div class="color-option" style="background-color: #FF5722;" data-color="#FF5722"></div>
-            <div class="color-option" style="background-color: #9C27B0;" data-color="#9C27B0"></div>
-            <div class="color-option" style="background-color: #FFC107;" data-color="#FFC107"></div>
-        </div>
-    </div>
-    
-    <div class="notification" id="notification">Notification message here</div>
-    
+                  
     <script>
       
-        let clickCount = 0;
-        let accentColor = "#4CAF50";
-        let currentText = "Your text will appear here...";
-
- 
         const body = document.body;
-        const toggleBtn = document.querySelector(".toggle-btn");
-        const counterBtn = document.getElementById("counter-btn");
-        const clickCounter = document.getElementById("click-counter");
-        const notificationBtn = document.getElementById("notification-btn");
-        const notification = document.getElementById("notification");
-        const resetBtn = document.getElementById("reset-btn");
-        const textOutput = document.getElementById("text-output");
-        const addTextBtn = document.getElementById("add-text-btn");
-        const clearTextBtn = document.getElementById("clear-text-btn");
-        const uppercaseBtn = document.getElementById("uppercase-btn");
-        const lowercaseBtn = document.getElementById("lowercase-btn");
-        const colorOptions = document.querySelectorAll(".color-option");
-
-     
+      
         document.addEventListener("DOMContentLoaded", initializeSettings);
-
         
         function toggleDarkMode() {
             body.classList.toggle("light-mode");
@@ -199,123 +92,15 @@
             } else {
                 localStorage.removeItem("darkMode");
                 toggleBtn.textContent = "Toggle Light Mode";
-            }
-        }
-
-      
-        counterBtn.addEventListener("click", () => {
-            clickCount++;
-            clickCounter.textContent = clickCount;
-            localStorage.setItem("clickCount", clickCount);
-        });
-
-   
-        notificationBtn.addEventListener("click", () => {
-            notification.textContent = "Notification triggered at " + new Date().toLocaleTimeString();
-            notification.style.opacity = "1";
-            notification.style.background = accentColor;
-
-            setTimeout(() => {
-                notification.style.opacity = "0";
-            }, 3000);
-        });
-
-        
-        resetBtn.addEventListener("click", () => {
-            clickCount = 0;
-            clickCounter.textContent = "0";
-            localStorage.removeItem("clickCount");
-
-            currentText = "Your text will appear here...";
-            textOutput.textContent = currentText;
-
-            accentColor = "#4CAF50";
-            updateAccentColor(accentColor);
-
-            colorOptions.forEach(option => {
-                option.classList.remove("active");
-                if (option.getAttribute("data-color") === accentColor) {
-                    option.classList.add("active");
-                }
-            });
-
-            notification.textContent = "All settings reset!";
-            notification.style.opacity = "1";
-            notification.style.background = accentColor;
-            setTimeout(() => {
-                notification.style.opacity = "0";
-            }, 3000);
-        });
-
-        
-        addTextBtn.addEventListener("click", () => {
-            currentText = "This is some sample text that you can manipulate with the buttons above. Try using the UPPERCASE and lowercase buttons to transform this text!";
-            textOutput.textContent = currentText;
-        });
-
-        clearTextBtn.addEventListener("click", () => {
-            currentText = "";
-            textOutput.textContent = currentText;
-        });
-
-        uppercaseBtn.addEventListener("click", () => {
-            currentText = textOutput.textContent.toUpperCase();
-            textOutput.textContent = currentText;
-        });
-
-        lowercaseBtn.addEventListener("click", () => {
-            currentText = textOutput.textContent.toLowerCase();
-            textOutput.textContent = currentText;
-        });
-
-      
-        colorOptions.forEach(option => {
-            option.addEventListener("click", () => {
-                accentColor = option.getAttribute("data-color");
-                colorOptions.forEach(opt => opt.classList.remove("active"));
-                option.classList.add("active");
-
-                updateAccentColor(accentColor);
-                localStorage.setItem("accentColor", accentColor);
-
-                notification.textContent = "Accent color updated!";
-                notification.style.opacity = "1";
-                notification.style.background = accentColor;
-                setTimeout(() => {
-                    notification.style.opacity = "0";
-                }, 2000);
-            });
-        });
-
-       
-        function updateAccentColor(color) {
-            notification.style.background = color;
-            document.documentElement.style.setProperty('--accent-color', color);
-        }
-
-     
+            }};
+                   
         function initializeSettings() {
             if (localStorage.getItem("darkMode") === "disabled") {
                 body.classList.add("light-mode");
                 toggleBtn.textContent = "Toggle Dark Mode";
             } else {
                 body.classList.add("dark-mode");
-            }
-
-            const savedColor = localStorage.getItem("accentColor");
-            if (savedColor) {
-                accentColor = savedColor;
-                updateAccentColor(accentColor);
-
-                colorOptions.forEach(option => {
-                    if (option.getAttribute("data-color") === accentColor) {
-                        option.classList.add("active");
-                    } else {
-                        option.classList.remove("active");
-                    }
-                });
-            }
-        }
+            }}
     </script>
 </body>
 </html>
