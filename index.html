@@ -29,20 +29,25 @@
     </style>
 </head>
 <body>
-    <button class="toggle-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    <button class="toggle-btn" onclick="toggleDarkMode()">Toggle Light Mode</button>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            const button = document.querySelector(".toggle-btn");
             if (localStorage.getItem("darkMode") === "disabled") {
                 document.body.classList.add("light-mode");
+                button.textContent = "Toggle Dark Mode";
             }
         });
 
         function toggleDarkMode() {
+            const button = document.querySelector(".toggle-btn");
             document.body.classList.toggle("light-mode");
             if (document.body.classList.contains("light-mode")) {
                 localStorage.setItem("darkMode", "disabled");
+                button.textContent = "Toggle Dark Mode";
             } else {
                 localStorage.removeItem("darkMode");
+                button.textContent = "Toggle Light Mode";
             }
         }
     </script>
