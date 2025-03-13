@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Buttons</title>
-    <style>
+    <title>Build Tool</title>
+      <style>
         body {
             font-family: Arial, sans-serif;
             transition: background-color 0.5s, color 0.5s;
-            background: #121212;
-            color: #fff;
             margin: 0;
             padding: 20px;
         }
@@ -18,7 +16,7 @@
             color: #000;
         }
         .dark-mode {
-            background: #121212;
+            background: #000;
             color: #fff;
         }
         .container {
@@ -50,9 +48,9 @@
             border-color: #babfc4;
         }
         .light-mode .btn {
-            background: #f1f1f1;
+            background: #ddd;
             color: #333;
-            border-color: #333;
+            border-color: #ddd;
         }
         .btn:hover {
             transform: translateY(-2px);
@@ -62,8 +60,8 @@
             transform: translateY(0);
         }
         .btn:focus {
-        outline: 3px solid;
-        outline-color: inherit;
+            outline: 2px solid;
+            outline-color: inherit;
         }
         .toggle-btn {
             position: fixed;
@@ -75,14 +73,41 @@
 </head>
 <body>
    
-    <button class="btn toggle-btn" aria-label="Toggle Dark/Light Mode" onclick="toggleDarkMode()">Toggle Light Mode</button>
-                  
-    <script>
-      
+    <button id="toggleBtn" class="btn toggle-btn" aria-label="Toggle Dark/Light Mode">Toggle Light Mode</button>
+
+    <div class="container">
+            <div class="button-row">
+            <button class="btn">Button 1</button>
+            <button class="btn">Button 2</button>
+            <button class="btn">Button 3</button>
+            <button class="btn">Button 4</button>
+            <button class="btn">Button 5</button>
+            <button class="btn">Button 6</button>
+            <button class="btn">Button 7</button>
+            <button class="btn">Button 8</button>
+            <button class="btn">Button 9</button>
+            <button class="btn">Button 10</button>
+            <button class="btn">Button 11</button>
+            <button class="btn">Button 12</button>
+        </div>
+    </div>
+    
+   <script>
         const body = document.body;
+        const toggleBtn = document.getElementById('toggleBtn');
       
-        document.addEventListener("DOMContentLoaded", initializeSettings);
+       // Set initial mode
+        function initializeMode() {
+            if (localStorage.getItem("darkMode") === "disabled") {
+                body.classList.add("light-mode");
+                toggleBtn.textContent = "Toggle Dark Mode";
+            } else {
+                body.classList.add("dark-mode");
+                toggleBtn.textContent = "Toggle Light Mode";
+            }
+        }
         
+        // Toggle between dark and light mode
         function toggleDarkMode() {
             body.classList.toggle("light-mode");
             body.classList.toggle("dark-mode");
@@ -93,15 +118,21 @@
             } else {
                 localStorage.removeItem("darkMode");
                 toggleBtn.textContent = "Toggle Light Mode";
-            }};
-                   
-        function initializeSettings() {
-            if (localStorage.getItem("darkMode") === "disabled") {
-                body.classList.add("light-mode");
-                toggleBtn.textContent = "Toggle Dark Mode";
-            } else {
-                body.classList.add("dark-mode");
-            }}
+            }
+        }
+        
+        // Add event listener to toggle button
+        toggleBtn.addEventListener('click', toggleDarkMode);
+        
+        // Initialize on page load
+        document.addEventListener("DOMContentLoaded", initializeMode);
+        
+        // Run initialization immediately in case DOM is already loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeMode);
+        } else {
+            initializeMode();
+        }
     </script>
 </body>
 </html>
