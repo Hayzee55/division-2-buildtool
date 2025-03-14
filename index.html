@@ -82,7 +82,7 @@
         
         .light-mode .inventory-tile {
             background-color: #ddd;
-            border-color: #333;
+            border-color: #bbb;
         }
         
         .light-mode .inventory-tile::before {
@@ -93,17 +93,12 @@
             color: #333;
         }
 
-        .light-mode .inventory-gui {
-            color: #bbb;
-        }
-
         /* Inventory grid layout */
         .inventory-gui {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             grid-template-rows: repeat(4, 1fr);
             gap: 15px;
-            background-color: #333;
             grid-template-areas:
                 "specialization primary secondary pistol"
                 "mask backpack chest gloves"
@@ -113,7 +108,7 @@
         
         /* Base tile styling */
         .inventory-tile {
-            background-color: rgba(50, 50, 50, 0.8);
+            background-color: #333;
             border: 2px solid #555;
             border-radius: 5px;
             height: 120px;
