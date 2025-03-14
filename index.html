@@ -134,10 +134,24 @@
         }
         
         /* Icon positions - each position is calculated as -64px * column and -64px * row */
-        .primary::before, .secondary::before, .pistol::before {
-            background-position: -384px -64px; /* Row 2, Icon 7 */
+        .primary::before {
+            background-image: url('Icons/ui_hud_notifications.png');
+            background-size: 512px 512px;
+            background-position: -128px -128px; /* Row 3, Icon 3 */
         }
         
+        .secondary::before {
+            background-image: url('Icons/ui_hud_notifications.png');
+            background-size: 512px 512px;
+            background-position: 0px -128px; /* Row 3, Icon 1 */
+        }
+
+        .pistol::before {
+            background-image: url('Icons/ui_hud_notifications.png');
+            background-size: 512px 512px;
+            background-position: -320px -128px; /* Row 3, Icon 6 */
+        }
+
         .holster::before {
             background-position: 0 -64px; /* Row 2, Icon 1 */
         }
