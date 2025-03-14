@@ -3,90 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Buttons</title>
+    <title>Inventory System</title>
     <style>
+        /* Base styles */
         body {
             font-family: Arial, sans-serif;
-            transition: background-color 0.5s, color 0.5s;
+            background-color: #1a1a1a;
+            color: #fff;
             margin: 0;
             padding: 20px;
         }
-        .light-mode {
-            background: #fff;
-            color: #000;
-        }
-        .dark-mode {
-            background: #121212;
-            color: #fff;
-        }
-        .container {
-            max-width: 800px;
-            margin: 60px auto;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .button-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 20px;
-            justify-content: center;
-        }
-        .btn {
-            padding: 10px 20px;
-            cursor: pointer;
-            border: 1px solid;
-            border-radius: 5px;
-            font-size: 14px;
-            font-weight: bold;
-            text-transform: uppercase;
-            transition: all 0.3s;
-            width: 120px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-        .dark-mode .btn {
-            background: #1f1f1f;
-            color: #babfc4;
-            border-color: #babfc4;
-        }
-        .light-mode .btn {
-            background: #f1f1f1;
-            color: #333;
-            border-color: #ddd;
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        .btn:active {
-            transform: translateY(0);
-        }
-        .btn:focus {
-            outline: 3px solid;
-            outline-color: inherit;
-        }
-        .toggle-btn {
+        
+        /* Logo styles */
+        .logo-container {
             position: fixed;
             top: 20px;
-            right: 20px;
+            left: 20px;
+            width: 200px;
+            height: 50px;
             z-index: 100;
-            width: auto;
-            height: auto;
         }
         
-        /* Popup Styles */
+        .logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: none; /* Hidden by default */
+        }
+        
+        /* Show appropriate logo based on theme */
+        .dark-mode .logo-dark {
+            display: block;
+        }
+        
+        .light-mode .logo-light {
+            display: block;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+        
+        /* Inventory grid layout */
+        .inventory-gui {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 15px;
+            grid-template-areas:
+                "specialization primary secondary pistol"
+                "mask backpack chest gloves"
+                "holster kneepads skill1 skill2"
+                "watch . . .";
+        }
+        
+        /* Base tile styling */
+        .inventory-tile {
+            background-color: rgba(50, 50, 50, 0.8);
+            border: 1px solid #444;
+            border-radius: 5px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s;
+            padding: 10px;
+        }
+
+        /* Spritesheet icon setup - creates the icon element */
+        .inventory-tile::before {
+            content: '';
+            width: 64px;
+            height: 64px;
+            background-image: url('icons/ui_loot_spritesheet.png');
+            background-size: 512px 512px; /* 8x8 grid of 64px icons */
+            background-repeat: no-repeat;
+            filter: invert(1); /* Makes black icons white */
+        }
+        
+        /* Icon positions - each position is calculated as -64px * column and -64px * row */
+        .primary::before, .secondary::before, .pistol::before {
+            background-position: -384px -64px; /* Row 2, Icon 7 */
+        }
+        
+        .holster::before {
+            background-position: 0 -64px; /* Row 2, Icon 1 */
+        }
+        
+        .chest::before {
+            background-position: -64px -64px; /* Row 2, Icon 2 */
+        }
+        
+        .backpack::before {
+            background-position: -128px -64px; /* Row 2, Icon 3 */
+        }
+        
+        .mask::before {
+            background-position: -192px -64px; /* Row 2, Icon 4 */
+        }
+        
+        .gloves::before {
+            background-position: -256px -64px; /* Row 2, Icon 5 */
+        }
+        
+        .kneepads::before {
+            background-position: -320px -64px; /* Row 2, Icon 6 */
+        }
+        
+        .skill1::before, .skill2::before {
+            background-position: -448px -64px; /* Row 2, Icon 8 */
+        }
+        
+        .specialization::before {
+            background-position: 0 -384px; /* Row 7, Icon 1 */
+        }
+        
+        /* Hover and active states */
+        .inventory-tile:hover {
+            background-color: rgba(70, 70, 70, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .inventory-tile:active {
+            transform: translateY(0);
+        }
+        
+        .tile-name {
+            position: absolute;
+            bottom: 5px;
+            font-size: 12px;
+            color: #ccc;
+            text-transform: uppercase;
+        }
+        
+        /* Popup overlay - covers the entire screen */
         .popup-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.8);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -101,9 +163,10 @@
             visibility: visible;
         }
         
+        /* Popup content styling */
         .popup {
-            background-color: #fff;
-            color: #333;
+            background-color: #8B3E2F; /* Reddish-brown color similar to game UI */
+            color: #fff;
             padding: 25px;
             border-radius: 8px;
             max-width: 500px;
@@ -113,18 +176,14 @@
             position: relative;
             transform: scale(0.8);
             transition: transform 0.3s;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .dark-mode .popup {
-            background-color: #1f1f1f;
-            color: #babfc4;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
         }
         
         .popup-overlay.active .popup {
             transform: scale(1);
         }
         
+        /* Close button */
         .popup-close {
             position: absolute;
             top: 10px;
@@ -133,7 +192,7 @@
             border: none;
             font-size: 24px;
             cursor: pointer;
-            color: #333;
+            color: #fff;
             width: 30px;
             height: 30px;
             display: flex;
@@ -142,227 +201,157 @@
             padding: 0;
         }
         
-        .dark-mode .popup-close {
-            color: #babfc4;
+        /* Item details styling */
+        .item-name {
+            font-size: 24px;
+            margin: 0 0 5px 0;
         }
         
-        .popup h2 {
-            margin-top: 0;
-            margin-bottom: 15px;
-            padding-right: 30px;
+        .item-type {
+            font-size: 16px;
+            color: #ddd;
+            margin: 0 0 20px 0;
+        }
+        
+        .item-talent {
+            margin: 0 0 15px 0;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+        
+        .item-talent-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .item-description {
+            line-height: 1.6;
         }
     </style>
 </head>
-<body>
-    <button id="toggleBtn" class="btn toggle-btn" aria-label="Toggle Dark/Light Mode">Toggle Light Mode</button>
-    
+<body class="dark-mode">
+    <!-- Logo container -->
+    <div class="logo-container">
+        <img src="ui_frontend_thedivision2logo_v2.png" alt="The Division 2 Logo Dark" class="logo logo-dark">
+        <img src="ui_frontend_thedivision2logo_v1.png" alt="The Division 2 Logo Light" class="logo logo-light">
+    </div>
+
     <div class="container">
-        <div class="button-row">
-            <button class="btn" data-popup="popup1">Button 1</button>
-            <button class="btn" data-popup="popup2">Button 2</button>
-            <button class="btn" data-popup="popup3">Button 3</button>
-            <button class="btn" data-popup="popup4">Button 4</button>
-            <button class="btn" data-popup="popup5">Button 5</button>
-            <button class="btn" data-popup="popup6">Button 6</button>
-            <button class="btn" data-popup="popup7">Button 7</button>
-            <button class="btn" data-popup="popup8">Button 8</button>
-            <button class="btn" data-popup="popup9">Button 9</button>
-            <button class="btn" data-popup="popup10">Button 10</button>
-            <button class="btn" data-popup="popup11">Button 11</button>
-            <button class="btn" data-popup="popup12">Button 12</button>
+        <!-- Main inventory grid with all equipment slots -->
+        <div class="inventory-gui" id="inventory-gui">
+            <div class="inventory-tile specialization" data-item="specialization">
+                <span class="tile-name">Specialization</span>
+            </div>
+            <div class="inventory-tile primary" data-item="primary">
+                <span class="tile-name">Primary Weapon</span>
+            </div>
+            <div class="inventory-tile secondary" data-item="secondary">
+                <span class="tile-name">Secondary Weapon</span>
+            </div>
+            <div class="inventory-tile pistol" data-item="pistol">
+                <span class="tile-name">Sidearm</span>
+            </div>
+            <div class="inventory-tile mask" data-item="mask">
+                <span class="tile-name">Mask</span>
+            </div>
+            <div class="inventory-tile backpack" data-item="backpack">
+                <span class="tile-name">Backpack</span>
+            </div>
+            <div class="inventory-tile chest" data-item="chest">
+                <span class="tile-name">Chest</span>
+            </div>
+            <div class="inventory-tile gloves" data-item="gloves">
+                <span class="tile-name">Gloves</span>
+            </div>
+            <div class="inventory-tile holster" data-item="holster">
+                <span class="tile-name">Holster</span>
+            </div>
+            <div class="inventory-tile kneepads" data-item="kneepads">
+                <span class="tile-name">Kneepads</span>
+            </div>
+            <div class="inventory-tile skill1" data-item="skill1">
+                <span class="tile-name">Skill 1</span>
+            </div>
+            <div class="inventory-tile skill2" data-item="skill2">
+                <span class="tile-name">Skill 2</span>
+            </div>
+            <div class="inventory-tile watch" data-item="watch">
+                <span class="tile-name">Watch</span>
+            </div>
         </div>
     </div>
     
-    <!-- Popup Overlays -->
-    <div id="popup1" class="popup-overlay">
+    <!-- Popup template - hidden by default, shown when an item is clicked -->
+    <div id="popupTemplate" class="popup-overlay">
         <div class="popup">
             <button class="popup-close" aria-label="Close popup">&times;</button>
-            <h2>Popup 1</h2>
-            <p>This is the content for popup 1. You can add any information here.</p>
-            <p>Each popup can have unique content and functionality.</p>
-        </div>
-    </div>
-    
-    <div id="popup2" class="popup-overlay">
-        <div class="popup">
-            <button class="popup-close" aria-label="Close popup">&times;</button>
-            <h2>Popup 2</h2>
-            <p>Welcome to popup 2! This one has different content.</p>
-            <p>You could add images, forms, or other interactive elements here.</p>
-        </div>
-    </div>
-    
-    <div id="popup3" class="popup-overlay">
-        <div class="popup">
-            <button class="popup-close" aria-label="Close popup">&times;</button>
-            <h2>Popup 3</h2>
-            <p>This is popup 3 with its own unique content.</p>
-            <ul>
-                <li>You can add lists</li>
-                <li>Or other HTML elements</li>
-                <li>To make each popup special</li>
-            </ul>
-        </div>
-    </div>
-    
-    <div id="popup4" class="popup-overlay">
-        <div class="popup">
-            <button class="popup-close" aria-label="Close popup">&times;</button>
-            <h2>Popup 4</h2>
-            <p>Popup 4 contains different information than the others.</p>
-            <p>You could use these popups for product details, help information, or user settings.</p>
-        </div>
-    </div>
-    
-    <div id="popup5" class="popup-overlay">
-        <div class="popup">
-            <button class="popup-close" aria-label="Close popup">&times;</button>
-            <h2>Popup 5</h2>
-            <p>This is popup 5 with custom content.</p>
-            <p>Each popup can be styled differently if needed.</p>
-        </div>
-    </div>
-    
-    <div id="popup6" class="popup-overlay">
-        <div class="popup">
-            <button class="popup-close" aria-label="Close popup">&times;</button>
-            <h2>Popup 6</h2>
-            <p>Welcome to popup 6!</p>
-            <p>You could include interactive elements like buttons or forms here.</p>
-        </div>
-    </div>
-    
-    <div id="popup7" class="popup-overlay">
-        <div class="popup">
-            <button class="popup-close" aria-label="Close popup">&times;</button>
-            <h2>Popup 7</h2>
-            <p>This is popup 7 with its own content.</p>
-            <p>Each popup can contain different information relevant to its button.</p>
-        </div>
-    </div>
-    
-    <div id="popup8" class="popup-overlay">
-        <div class="popup">
-            <button class="popup-close" aria-label="Close popup">&times;</button>
-            <h2>Popup 8</h2>
-            <p>Popup 8 has arrived with unique information.</p>
-            <p>These popups could be used for feature explanations or tutorials.</p>
-        </div>
-    </div>
-    
-    <div id="popup9" class="popup-overlay">
-        <div class="popup">
-            <button class="popup-close" aria-label="Close popup">&times;</button>
-            <h2>Popup 9</h2>
-            <p>This is popup 9 with custom content.</p>
-            <p>You can add any HTML content you want in these popups.</p>
-        </div>
-    </div>
-    
-    <div id="popup10" class="popup-overlay">
-        <div class="popup">
-            <button class="popup-close" aria-label="Close popup">&times;</button>
-            <h2>Popup 10</h2>
-            <p>Welcome to popup 10!</p>
-            <p>Each popup can have its own theme or purpose.</p>
-        </div>
-    </div>
-    
-    <div id="popup11" class="popup-overlay">
-        <div class="popup">
-            <button class="popup-close" aria-label="Close popup">&times;</button>
-            <h2>Popup 11</h2>
-            <p>This is popup 11 with unique content.</p>
-            <p>You could use these for different categories of information.</p>
-        </div>
-    </div>
-    
-    <div id="popup12" class="popup-overlay">
-        <div class="popup">
-            <button class="popup-close" aria-label="Close popup">&times;</button>
-            <h2>Popup 12</h2>
-            <p>The final popup, number 12!</p>
-            <p>Each button now triggers its own unique popup with custom content.</p>
+            <h2 class="item-name">Item Name</h2>
+            <p class="item-type">Item Type</p>
+            <div class="item-talent">
+                <div class="item-talent-name">Talent: <span>Talent Name</span></div>
+            </div>
+            <div class="item-description">
+                Item description will appear here when data is loaded.
+            </div>
         </div>
     </div>
                
     <script>
+        // Get references to DOM elements
+        const inventoryTiles = document.querySelectorAll('.inventory-tile');
+        const popupTemplate = document.getElementById('popupTemplate');
+        const closeButton = popupTemplate.querySelector('.popup-close');
         const body = document.body;
-        const toggleBtn = document.getElementById('toggleBtn');
-        const buttons = document.querySelectorAll('.btn[data-popup]');
-        const popups = document.querySelectorAll('.popup-overlay');
-        const closeButtons = document.querySelectorAll('.popup-close');
         
         // Set initial mode
         function initializeMode() {
             if (localStorage.getItem("darkMode") === "disabled") {
-                body.classList.add("light-mode");
-                toggleBtn.textContent = "Toggle Dark Mode";
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
             } else {
-                body.classList.add("dark-mode");
-                toggleBtn.textContent = "Toggle Light Mode";
+                body.classList.add('dark-mode');
+                body.classList.remove('light-mode');
             }
         }
         
         // Toggle between dark and light mode
         function toggleDarkMode() {
-            body.classList.toggle("light-mode");
-            body.classList.toggle("dark-mode");
+            body.classList.toggle('light-mode');
+            body.classList.toggle('dark-mode');
 
-            if (body.classList.contains("light-mode")) {
-                localStorage.setItem("darkMode", "disabled");
-                toggleBtn.textContent = "Toggle Dark Mode";
+            if (body.classList.contains('light-mode')) {
+                localStorage.setItem('darkMode', 'disabled');
             } else {
-                localStorage.removeItem("darkMode");
-                toggleBtn.textContent = "Toggle Light Mode";
+                localStorage.removeItem('darkMode');
             }
         }
         
-        // Show popup
-        function showPopup(popupId) {
-            // Hide any open popups first
-            popups.forEach(popup => {
-                popup.classList.remove('active');
+        // Add click event listeners to all inventory tiles
+        inventoryTiles.forEach(tile => {
+            tile.addEventListener('click', () => {
+                const itemType = tile.getAttribute('data-item');
+                const tileName = tile.querySelector('.tile-name').textContent;
+                
+                // Show popup with placeholder data
+                // This is where you would load actual data from CSV
+                showItemPopup({
+                    name: tileName,
+                    type: itemType.charAt(0).toUpperCase() + itemType.slice(1),
+                    talent: "No data loaded",
+                    description: "This is a placeholder. You can load your CSV data here to display actual item information."
+                });
             });
-            
-            // Show the selected popup
-            const popup = document.getElementById(popupId);
-            if (popup) {
-                popup.classList.add('active');
-                // Prevent scrolling on the body when popup is open
-                document.body.style.overflow = 'hidden';
+        });
+        
+        // Close popup when clicking the close button
+        closeButton.addEventListener('click', hidePopup);
+        
+        // Close popup when clicking outside the popup content
+        popupTemplate.addEventListener('click', (e) => {
+            if (e.target === popupTemplate) {
+                hidePopup();
             }
-        }
-        
-        // Hide popup
-        function hidePopup() {
-            popups.forEach(popup => {
-                popup.classList.remove('active');
-            });
-            // Restore scrolling
-            document.body.style.overflow = '';
-        }
-        
-        // Add event listeners to buttons
-        buttons.forEach(button => {
-            button.addEventListener('click', () => {
-                const popupId = button.getAttribute('data-popup');
-                showPopup(popupId);
-            });
-        });
-        
-        // Add event listeners to close buttons
-        closeButtons.forEach(button => {
-            button.addEventListener('click', hidePopup);
-        });
-        
-        // Close popup when clicking on overlay
-        popups.forEach(popup => {
-            popup.addEventListener('click', (e) => {
-                if (e.target === popup) {
-                    hidePopup();
-                }
-            });
         });
         
         // Close popup with ESC key
@@ -372,11 +361,49 @@
             }
         });
         
-        // Add event listener to toggle button
-        toggleBtn.addEventListener('click', toggleDarkMode);
+        // Function to show popup with item data
+        function showItemPopup(item) {
+            // Update popup content with item data
+            popupTemplate.querySelector('.item-name').textContent = item.name;
+            popupTemplate.querySelector('.item-type').textContent = item.type;
+            popupTemplate.querySelector('.item-talent-name span').textContent = item.talent;
+            popupTemplate.querySelector('.item-description').textContent = item.description;
+            
+            // Show popup and prevent scrolling
+            popupTemplate.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
         
-        // Initialize on page load
-        document.addEventListener("DOMContentLoaded", initializeMode);
+        // Function to hide popup
+        function hidePopup() {
+            popupTemplate.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        /* 
+        // Example of how to load data from CSV Thanks Mate :)
+        async function loadItemData() {
+            try {
+                const response = await fetch('your-csv-file.csv');
+                const csvText = await response.text();
+                
+                // Parse CSV and use the data
+                const rows = csvText.split('\n');
+                const headers = rows[0].split(',');
+                const items = {};
+                
+                // Process each row
+                for (let i = 1; i < rows.length; i++) {
+                    // Your CSV processing code here
+                }
+            } catch (error) {
+                console.error('Error loading item data:', error);
+            }
+        }
+        */
+        
+        // Initialize theme on page load
+        document.addEventListener('DOMContentLoaded', initializeMode);
         
         // Run initialization immediately in case DOM is already loaded
         if (document.readyState === 'loading') {
@@ -384,7 +411,6 @@
         } else {
             initializeMode();
         }
-
-</script>
+    </script>
 </body>
 </html>
