@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Build Tool</title>
-      <style>
+    <title>Interactive Buttons</title>
+    <style>
         body {
             font-family: Arial, sans-serif;
             transition: background-color 0.5s, color 0.5s;
@@ -16,7 +16,7 @@
             color: #000;
         }
         .dark-mode {
-            background: #000;
+            background: #121212;
             color: #fff;
         }
         .container {
@@ -55,7 +55,7 @@
             border-color: #babfc4;
         }
         .light-mode .btn {
-            background: #ddd;
+            background: #f1f1f1;
             color: #333;
             border-color: #ddd;
         }
@@ -78,34 +78,222 @@
             width: auto;
             height: auto;
         }
+        
+        /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .popup {
+            background-color: #fff;
+            color: #333;
+            padding: 25px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.8);
+            transition: transform 0.3s;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dark-mode .popup {
+            background-color: #1f1f1f;
+            color: #babfc4;
+        }
+        
+        .popup-overlay.active .popup {
+            transform: scale(1);
+        }
+        
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        
+        .dark-mode .popup-close {
+            color: #babfc4;
+        }
+        
+        .popup h2 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            padding-right: 30px;
+        }
     </style>
 </head>
 <body>
-   
     <button id="toggleBtn" class="btn toggle-btn" aria-label="Toggle Dark/Light Mode">Toggle Light Mode</button>
-
+    
     <div class="container">
-            <div class="button-row">
-            <button class="btn">Button 1 </button>
-            <button class="btn">Button 2 </button>
-            <button class="btn">Button 3 </button>
-            <button class="btn">Button 4 </button>
-            <button class="btn">Button 5 </button>
-            <button class="btn">Button 6 </button>
-            <button class="btn">Button 7 </button>
-            <button class="btn">Button 8 </button>
-            <button class="btn">Button 9 </button>
-            <button class="btn">Button 10</button>
-            <button class="btn">Button 11</button>
-            <button class="btn">Button 12</button>
+        <div class="button-row">
+            <button class="btn" data-popup="popup1">Button 1</button>
+            <button class="btn" data-popup="popup2">Button 2</button>
+            <button class="btn" data-popup="popup3">Button 3</button>
+            <button class="btn" data-popup="popup4">Button 4</button>
+            <button class="btn" data-popup="popup5">Button 5</button>
+            <button class="btn" data-popup="popup6">Button 6</button>
+            <button class="btn" data-popup="popup7">Button 7</button>
+            <button class="btn" data-popup="popup8">Button 8</button>
+            <button class="btn" data-popup="popup9">Button 9</button>
+            <button class="btn" data-popup="popup10">Button 10</button>
+            <button class="btn" data-popup="popup11">Button 11</button>
+            <button class="btn" data-popup="popup12">Button 12</button>
         </div>
     </div>
     
-   <script>
+    <!-- Popup Overlays -->
+    <div id="popup1" class="popup-overlay">
+        <div class="popup">
+            <button class="popup-close" aria-label="Close popup">&times;</button>
+            <h2>Popup 1</h2>
+            <p>This is the content for popup 1. You can add any information here.</p>
+            <p>Each popup can have unique content and functionality.</p>
+        </div>
+    </div>
+    
+    <div id="popup2" class="popup-overlay">
+        <div class="popup">
+            <button class="popup-close" aria-label="Close popup">&times;</button>
+            <h2>Popup 2</h2>
+            <p>Welcome to popup 2! This one has different content.</p>
+            <p>You could add images, forms, or other interactive elements here.</p>
+        </div>
+    </div>
+    
+    <div id="popup3" class="popup-overlay">
+        <div class="popup">
+            <button class="popup-close" aria-label="Close popup">&times;</button>
+            <h2>Popup 3</h2>
+            <p>This is popup 3 with its own unique content.</p>
+            <ul>
+                <li>You can add lists</li>
+                <li>Or other HTML elements</li>
+                <li>To make each popup special</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="popup4" class="popup-overlay">
+        <div class="popup">
+            <button class="popup-close" aria-label="Close popup">&times;</button>
+            <h2>Popup 4</h2>
+            <p>Popup 4 contains different information than the others.</p>
+            <p>You could use these popups for product details, help information, or user settings.</p>
+        </div>
+    </div>
+    
+    <div id="popup5" class="popup-overlay">
+        <div class="popup">
+            <button class="popup-close" aria-label="Close popup">&times;</button>
+            <h2>Popup 5</h2>
+            <p>This is popup 5 with custom content.</p>
+            <p>Each popup can be styled differently if needed.</p>
+        </div>
+    </div>
+    
+    <div id="popup6" class="popup-overlay">
+        <div class="popup">
+            <button class="popup-close" aria-label="Close popup">&times;</button>
+            <h2>Popup 6</h2>
+            <p>Welcome to popup 6!</p>
+            <p>You could include interactive elements like buttons or forms here.</p>
+        </div>
+    </div>
+    
+    <div id="popup7" class="popup-overlay">
+        <div class="popup">
+            <button class="popup-close" aria-label="Close popup">&times;</button>
+            <h2>Popup 7</h2>
+            <p>This is popup 7 with its own content.</p>
+            <p>Each popup can contain different information relevant to its button.</p>
+        </div>
+    </div>
+    
+    <div id="popup8" class="popup-overlay">
+        <div class="popup">
+            <button class="popup-close" aria-label="Close popup">&times;</button>
+            <h2>Popup 8</h2>
+            <p>Popup 8 has arrived with unique information.</p>
+            <p>These popups could be used for feature explanations or tutorials.</p>
+        </div>
+    </div>
+    
+    <div id="popup9" class="popup-overlay">
+        <div class="popup">
+            <button class="popup-close" aria-label="Close popup">&times;</button>
+            <h2>Popup 9</h2>
+            <p>This is popup 9 with custom content.</p>
+            <p>You can add any HTML content you want in these popups.</p>
+        </div>
+    </div>
+    
+    <div id="popup10" class="popup-overlay">
+        <div class="popup">
+            <button class="popup-close" aria-label="Close popup">&times;</button>
+            <h2>Popup 10</h2>
+            <p>Welcome to popup 10!</p>
+            <p>Each popup can have its own theme or purpose.</p>
+        </div>
+    </div>
+    
+    <div id="popup11" class="popup-overlay">
+        <div class="popup">
+            <button class="popup-close" aria-label="Close popup">&times;</button>
+            <h2>Popup 11</h2>
+            <p>This is popup 11 with unique content.</p>
+            <p>You could use these for different categories of information.</p>
+        </div>
+    </div>
+    
+    <div id="popup12" class="popup-overlay">
+        <div class="popup">
+            <button class="popup-close" aria-label="Close popup">&times;</button>
+            <h2>Popup 12</h2>
+            <p>The final popup, number 12!</p>
+            <p>Each button now triggers its own unique popup with custom content.</p>
+        </div>
+    </div>
+               
+    <script>
         const body = document.body;
         const toggleBtn = document.getElementById('toggleBtn');
-      
-       // Set initial mode
+        const buttons = document.querySelectorAll('.btn[data-popup]');
+        const popups = document.querySelectorAll('.popup-overlay');
+        const closeButtons = document.querySelectorAll('.popup-close');
+        
+        // Set initial mode
         function initializeMode() {
             if (localStorage.getItem("darkMode") === "disabled") {
                 body.classList.add("light-mode");
@@ -130,6 +318,60 @@
             }
         }
         
+        // Show popup
+        function showPopup(popupId) {
+            // Hide any open popups first
+            popups.forEach(popup => {
+                popup.classList.remove('active');
+            });
+            
+            // Show the selected popup
+            const popup = document.getElementById(popupId);
+            if (popup) {
+                popup.classList.add('active');
+                // Prevent scrolling on the body when popup is open
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        // Hide popup
+        function hidePopup() {
+            popups.forEach(popup => {
+                popup.classList.remove('active');
+            });
+            // Restore scrolling
+            document.body.style.overflow = '';
+        }
+        
+        // Add event listeners to buttons
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const popupId = button.getAttribute('data-popup');
+                showPopup(popupId);
+            });
+        });
+        
+        // Add event listeners to close buttons
+        closeButtons.forEach(button => {
+            button.addEventListener('click', hidePopup);
+        });
+        
+        // Close popup when clicking on overlay
+        popups.forEach(popup => {
+            popup.addEventListener('click', (e) => {
+                if (e.target === popup) {
+                    hidePopup();
+                }
+            });
+        });
+        
+        // Close popup with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                hidePopup();
+            }
+        });
+        
         // Add event listener to toggle button
         toggleBtn.addEventListener('click', toggleDarkMode);
         
@@ -142,6 +384,7 @@
         } else {
             initializeMode();
         }
-    </script>
+
+</script>
 </body>
 </html>
