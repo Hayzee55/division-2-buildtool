@@ -40,9 +40,57 @@
             display: block;
         }
         
+        /* Theme toggle button */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            padding: 10px 15px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .light-mode .theme-toggle {
+            background-color: #ddd;
+            color: #333;
+        }
+        
+        .theme-toggle:hover {
+            background-color: #555;
+        }
+        
+        .light-mode .theme-toggle:hover {
+            background-color: #bbb;
+        }
+        
         .container {
             max-width: 1000px;
             margin: 40px auto;
+        }
+        
+        /* Light mode styles */
+        .light-mode {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .light-mode .inventory-tile {
+            background-color: rgba(220, 220, 220, 0.8);
+            border-color: #ccc;
+        }
+        
+        .light-mode .inventory-tile::before {
+            filter: none; /* No inversion needed for light mode */
+        }
+        
+        .light-mode .tile-name {
+            color: #555;
         }
         
         /* Inventory grid layout */
@@ -127,6 +175,10 @@
             background-color: rgba(70, 70, 70, 0.8);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .light-mode .inventory-tile:hover {
+            background-color: rgba(200, 200, 200, 0.8);
         }
         
         .inventory-tile:active {
@@ -233,9 +285,12 @@
 <body class="dark-mode">
     <!-- Logo container -->
     <div class="logo-container">
-        <img src="ui_frontend_thedivision2logo_v2.png" alt="The Division 2 Logo Dark" class="logo logo-dark">
-        <img src="ui_frontend_thedivision2logo_v1.png" alt="The Division 2 Logo Light" class="logo logo-light">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ui_frontend_thedivision2logo_v2-SNVgeHv4mazvjGAmMtHGxUPkZM8KLP.png" alt="The Division 2 Logo Dark" class="logo logo-dark">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ui_frontend_thedivision2logo_v1-2fAFlXYjYtsCcs7aGNOH4MAx5WkZo3.png" alt="The Division 2 Logo Light" class="logo logo-light">
     </div>
+    
+    <!-- Theme toggle button -->
+    <button id="themeToggle" class="theme-toggle">Toggle Light Mode</button>
 
     <div class="container">
         <!-- Main inventory grid with all equipment slots -->
@@ -303,15 +358,18 @@
         const popupTemplate = document.getElementById('popupTemplate');
         const closeButton = popupTemplate.querySelector('.popup-close');
         const body = document.body;
+        const themeToggle = document.getElementById('themeToggle');
         
         // Set initial mode
         function initializeMode() {
             if (localStorage.getItem("darkMode") === "disabled") {
                 body.classList.remove('dark-mode');
                 body.classList.add('light-mode');
+                themeToggle.textContent = "Toggle Dark Mode";
             } else {
                 body.classList.add('dark-mode');
                 body.classList.remove('light-mode');
+                themeToggle.textContent = "Toggle Light Mode";
             }
         }
         
@@ -322,10 +380,15 @@
 
             if (body.classList.contains('light-mode')) {
                 localStorage.setItem('darkMode', 'disabled');
+                themeToggle.textContent = "Toggle Dark Mode";
             } else {
                 localStorage.removeItem('darkMode');
+                themeToggle.textContent = "Toggle Light Mode";
             }
         }
+        
+        // Add event listener to theme toggle button
+        themeToggle.addEventListener('click', toggleDarkMode);
         
         // Add click event listeners to all inventory tiles
         inventoryTiles.forEach(tile => {
@@ -380,27 +443,20 @@
             document.body.style.overflow = '';
         }
         
-        /* 
-        // Example of how to load data from CSV Thanks Mate :)
-        async function loadItemData() {
-            try {
-                const response = await fetch('your-csv-file.csv');
-                const csvText = await response.text();
-                
-                // Parse CSV and use the data
-                const rows = csvText.split('\n');
-                const headers = rows[0].split(',');
-                const items = {};
-                
-                // Process each row
-                for (let i = 1; i < rows.length; i++) {
-                    // Your CSV processing code here
-                }
-            } catch (error) {
-                console.error('Error loading item data:', error);
-            }
-        }
-        */
+        // Check if spritesheet is loading correctly
+        window.addEventListener('load', function() {
+            // Create a test image to check if the spritesheet is loading
+            const testImg = new Image();
+            testImg.onerror = function() {
+                console.error('Error loading spritesheet. Using fallback styles.');
+                document.querySelectorAll('.inventory-tile').forEach(tile => {
+                    // Apply fallback styles if spritesheet fails to load
+                    tile.style.backgroundColor = '#444';
+                    tile.style.color = '#fff';
+                });
+            };
+            testImg.src = 'icons/ui_loot_spritesheet.png';
+        });
         
         // Initialize theme on page load
         document.addEventListener('DOMContentLoaded', initializeMode);
