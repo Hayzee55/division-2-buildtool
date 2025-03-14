@@ -8,8 +8,8 @@
         /* Base styles */
         body {
             font-family: Arial, sans-serif;
-            background-color: #1a1a1a;
-            color: #fff;
+            background-color: #1a1a1a; /* Dark Mode Background Color */
+            color: #fff; /* Nothing?? */
             margin: 0;
             padding: 20px;
         }
@@ -47,8 +47,8 @@
             right: 20px;
             z-index: 100;
             padding: 10px 15px;
-            background-color: #333;
-            color: #fff;
+            background-color: #333; /* Dark Mode Theme Button Color */
+            color: #fff; /* Dark Mode Theme Button Text Color */
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -57,16 +57,16 @@
         }
         
         .light-mode .theme-toggle {
-            background-color: #bbb;
-            color: #333;
+            background-color: #bbb; /* Light Mode Theme Button Color */
+            color: #333; /* Light mode Theme Button Text Color */
         }
         
         .theme-toggle:hover {
-            background-color: #555;
+            background-color: #555; /* Dark Mode Color Change When Hovering Over Theme Button */
         }
         
         .light-mode .theme-toggle:hover {
-            background-color: #a2a2a2;
+            background-color: #a2a2a2; /* Light Mode Color Change When Hovering Over Theme Button */
         }
         
         .container {
@@ -76,13 +76,13 @@
         
         /* Light mode styles */
         .light-mode {
-            background-color: #f5f5f5;
-            color: #bbb;
+            background-color: #f5f5f5; /* Light Mode Background Color */
+            color: #bbb; /* Nothing? */
         }
         
         .light-mode .inventory-tile {
-            background-color: #bbb;
-            border-color: #333;
+            background-color: #bbb; /* Light Mode Tile Color */
+            border-color: #333; /* Light Mode Tile Border Color */
         }
         
         .light-mode .inventory-tile::before {
@@ -90,7 +90,7 @@
         }
         
         .light-mode .tile-name {
-            color: #333;
+            color: #333; /* Light Mode Tile Text Color */
         }
 
         /* Inventory grid layout */
@@ -108,9 +108,9 @@
         
         /* Base tile styling */
         .inventory-tile {
-            background-color: #333;
-            border: 2px solid #555;
-            border-radius: 5px;
+            background-color: #333; /* Dark Mode Tile Color */
+            border: 2px solid #555; /* Dark Mode Tile Border Color & Both Themes Border Widths */
+            border-radius: 5px; /* Both Themes border Radius */
             height: 120px;
             display: flex;
             flex-direction: column;
@@ -125,9 +125,9 @@
         /* Spritesheet icon setup - creates the icon element */
         .inventory-tile::before {
             content: '';
-            width: 64px;
+            width: 64px; 
             height: 64px;
-            background-image: url('Icons/ui_loot_spritesheet.png');
+            background-image: url('Icons/ui_loot_spritesheet.png'); /* Default Spritesheet */
             background-size: 512px 512px; /* 8x8 grid of 64px icons */
             background-repeat: no-repeat;
             filter: invert(1); /* Makes black icons white */
@@ -135,8 +135,8 @@
         
         /* Icon positions - each position is calculated as -64px * column and -64px * row */
         .primary::before {
-            background-image: url('Icons/ui_hud_notifications.png');
-            background-size: 512px 512px;
+            background-image: url('Icons/ui_hud_notifications.png'); /* Specific Spritesheet */
+            background-size: 512px 512px; 
             background-position: -128px -128px; /* Row 3, Icon 3 */
         }
         
@@ -186,13 +186,13 @@
         
         /* Hover and active states */
         .inventory-tile:hover {
-            background-color: rgba(70, 70, 70, 0.8);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            background-color: rgba(70, 70, 70, 0.8); /* Dark Mode Tile Color When Hovering */
+            transform: translateY(-2px); /* Both Themes Hover Movement */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Both Theme Hover Shadow */
         }
         
         .light-mode .inventory-tile:hover {
-            background-color: rgba(200, 200, 200, 0.8);
+            background-color: rgba(200, 200, 200, 0.8); /* Light Mode Tile Color When Hovering */
         }
         
         .inventory-tile:active {
@@ -203,7 +203,7 @@
             position: absolute;
             bottom: 5px;
             font-size: 12px;
-            color: #ccc;
+            color: #ccc; /* Dark Mode Tile Text Color */
             text-transform: uppercase;
         }
         
@@ -214,25 +214,25 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.8); /* Background Color When Pop Up Open */
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
             opacity: 0;
-            visibility: hidden;
+            visibility: hidden; /* Hides By Default = Good Thing */
             transition: opacity 0.3s, visibility 0.3s;
         }
         
         .popup-overlay.active {
             opacity: 1;
-            visibility: visible;
+            visibility: visible; /* Unhides When Item Clicked */
         }
         
         /* Popup content styling */
         .popup {
-            background-color: #8B3E2F; /* Reddish-brown color similar to game UI */
-            color: #fff;
+            background-color: #8B3E2F; /* Dark Mode Pop Up Menu Color */
+            color: #fff; /* Dark Mode Pop Up Menu Text Color */
             padding: 25px;
             border-radius: 8px;
             max-width: 500px;
@@ -242,7 +242,7 @@
             position: relative;
             transform: scale(0.8);
             transition: transform 0.3s;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4); /* Dark Mode Pop Up Menu Shadow */
         }
         
         .popup-overlay.active .popup {
@@ -258,7 +258,7 @@
             border: none;
             font-size: 24px;
             cursor: pointer;
-            color: #fff;
+            color: #fff; /* Pop Up Menu Close Button (X) Color */ 
             width: 30px;
             height: 30px;
             display: flex;
@@ -275,14 +275,14 @@
         
         .item-type {
             font-size: 16px;
-            color: #ddd;
+            color: #ddd; /* Color Of Item Type (Maybe Unnecessary) */
             margin: 0 0 20px 0;
         }
         
         .item-talent {
             margin: 0 0 15px 0;
             padding: 10px;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.2); /* Pop Up Menu Talent Box Color */
             border-radius: 4px;
         }
         
@@ -300,21 +300,21 @@
         }
 
         .light-mode .popup {
-            background-color: #8B3E2F; /* Lighter version of the reddish-brown */
-            color: #fff;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            background-color: #8B3E2F; /* Light Mode Pop Up Menu */
+            color: #fff; /* Light Mode Pop Up Menu Text Color */
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4); /* Light Mode Pop Up Menu Shadow */
         }
 
         .light-mode .popup-close {
-            color: #fff;
+            color: #fff; /* Light Mode Pop Up Menu Close Color (X) */
         }
 
         .light-mode .item-type {
-            color: #fff;
+            color: #fff; /* Light Mode Pop Up Menu Item Type (Useless again) */
         }
 
         .light-mode .item-talent {
-            background:  rgba(0, 0, 0, 0.2);
+            background:  rgba(0, 0, 0, 0.2); /* Light Mode Pop Up Menu Talent Box Color */
         }
 </style>
 </head>
@@ -487,11 +487,11 @@
                 console.error('Error loading spritesheet. Using fallback styles.');
                 document.querySelectorAll('.inventory-tile').forEach(tile => {
                     // Apply fallback styles if spritesheet fails to load
-                    tile.style.backgroundColor = '#444';
-                    tile.style.color = '#fff';
+                    tile.style.backgroundColor = '#444'; // Should Match Styles But Lazy
+                    tile.style.color = '#fff'; // // Should Match Styles But Lazy
                 });
             };
-            testImg.src = 'Icons/ui_loot_spritesheet.png';
+            testImg.src = 'Icons/ui_loot_spritesheet.png'; // Main Spritesheet Image
         });
         
         // Initialize theme on page load
