@@ -92,13 +92,18 @@
         .light-mode .tile-name {
             color: #333;
         }
-        
+
+        .light-mode .inventory-gui {
+            color: #bbb;
+        }
+
         /* Inventory grid layout */
         .inventory-gui {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             grid-template-rows: repeat(4, 1fr);
             gap: 15px;
+            background-color: #333;
             grid-template-areas:
                 "specialization primary secondary pistol"
                 "mask backpack chest gloves"
@@ -296,11 +301,11 @@
         }
 
         .light-mode .item-type {
-            color: #ccc;
+            color: #fff;
         }
 
         .light-mode .item-talent {
-            background: #ccc;
+            background:  rgba(0, 0, 0, 0.2);
         }
 </style>
 </head>
