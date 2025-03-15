@@ -612,7 +612,7 @@
   }
   
   .save-item:hover {
-    background-color: var(--primary-light);
+    background-color: var(--secondary-dark);
   }
   
   /* Responsive styles */
