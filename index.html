@@ -68,6 +68,34 @@
         .light-mode .theme-toggle:hover {
             background-color: #a2a2a2; /* Light Mode Color Change When Hovering Over Theme Button */
         }
+
+        .shd-toggle {
+            position: fixed;
+            top: 20px;
+            right: 160px;
+            z-index: 100;
+            padding: 10px 15px;
+            background-color: #333; /* Dark Mode Theme Button Color */
+            color: #fff; /* Dark Mode Theme Button Text Color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .light-mode .shd-toggle {
+            background-color: #bbb; /* Light Mode Theme Button Color */
+            color: #333; /* Light mode Theme Button Text Color */
+        }
+        
+        .shd-toggle:hover {
+            background-color: #555; /* Dark Mode Color Change When Hovering Over Theme Button */
+        }
+        
+        .light-mode .shd-toggle:hover {
+            background-color: #a2a2a2; /* Light Mode Color Change When Hovering Over Theme Button */
+        }
         
         .container {
             max-width: 1000px;
@@ -327,6 +355,7 @@
    
     <!-- Theme toggle button -->
     <button id="themeToggle" class="theme-toggle">Toggle Light Mode</button>
+    <button id="shdToggle" class="shd-toggle">Toggle Max SHD</button>
 
     <div class="container">
         <!-- Main inventory grid with all equipment slots -->
@@ -387,7 +416,11 @@
             </div>
         </div>
     </div>
-               
+
+    <script type="module">
+        import { getSHDStats, updateSHDStats, toggleMaxStats } from './SHD.js';
+    </script>
+    
     <script>
         // Get references to DOM elements
         const inventoryTiles = document.querySelectorAll('.inventory-tile');
@@ -395,6 +428,7 @@
         const closeButton = popupTemplate.querySelector('.popup-close');
         const body = document.body;
         const themeToggle = document.getElementById('themeToggle');
+        const shdToggle = document.getElementById('shdToggle');
         
         // Set initial mode
         function initializeMode() {
@@ -406,6 +440,15 @@
                 body.classList.add('dark-mode');
                 body.classList.remove('light-mode');
                 themeToggle.textContent = "Toggle Light Mode";
+            }
+            if(localStorage.getItem("isMaxStats") === "true") {
+                body.classList.remove('no-shd');
+                body.classList.add('max-shd');
+                shdToggle.textContent = "Toggle Max SHD";
+            } else {
+                body.classList.add('no-shd');
+                body.classList.remove('max-shd');
+                shdToggle.textContent = "Toggle No SHD";
             }
         }
         
@@ -423,9 +466,27 @@
             }
         }
         
-        // Add event listener to theme toggle button
+        function toggleSHDMode() {
+            body.classList.toggle('max-shd');
+            body.classList.toggle('no-shd');
+            
+            // Update the localStorage to reflect the new SHD state
+           const isMaxStats = body.classList.contains('max-shd');
+           localStorage.setItem('isMaxStats', isMaxStats);
+
+           // Update the button text based on the new state
+            if (isMaxStats) {
+              shdToggle.textContent = "Toggle No SHD";  // Max SHD active
+            } else {
+              shdToggle.textContent = "Toggle Max SHD";  // No SHD active
+            }
+            }       
+
+        // Add event listener to toggle buttons
         themeToggle.addEventListener('click', toggleDarkMode);
+        shdToggle.addEventListener('click', toggleSHDMode);
         
+    
         // Add click event listeners to all inventory tiles
         inventoryTiles.forEach(tile => {
             tile.addEventListener('click', () => {
