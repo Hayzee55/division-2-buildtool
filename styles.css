@@ -185,8 +185,8 @@
   
   .inventory-tile::before{
     content: '';
-    width: 50%;
-    height: 50%;
+    width: 64px;
+    height: 64px;
     background-image: url('Icons/ui_loot_spritesheet.png');
     background-size: 512px 512px;
     background-repeat: no-repeat;
