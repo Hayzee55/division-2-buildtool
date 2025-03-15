@@ -106,7 +106,6 @@
   }
   
   .theme-toggle:hover,
-  .loadout-controls:hover,
   .shd-toggle:hover {
     background-color: var(--primary-light);
   }
@@ -118,7 +117,6 @@
   }
   
   .light-mode .theme-toggle:hover,
-  .light-mode .loadout-controls:hover,
   .light-mode .shd-toggle:hover {
     background-color: var(--secondary-light);
   }
