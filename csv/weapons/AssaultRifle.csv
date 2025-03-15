@@ -1,0 +1,55 @@
+id,name,type,quality,talent,dmg,rpm,mag,optimal,reload,extraAttributes
+ACR,ACR,Assault Rifle,High-End,,"58,886.00",650,30,31,1.91,55
+ACR-E,ACR-E,Assault Rifle,High-End,,"58,886.00",650,30,31,1.91,55
+AK-M,AK-M,Assault Rifle,High-End,,"67,161.00",600,30,27,2.26,55
+First Sight (AK-M),First Sight (AK-M),Assault Rifle,Named,,"67,161.00",600,30,27,2.26,85
+Military AK-M,Military AK-M,Assault Rifle,High-End,,"64,703.00",600,30,27,2.3,55
+Black Market AK-M,Black Market AK-M,Assault Rifle,High-End,,"64,703.00",600,30,27,2.3,55
+Black Market AK-M Replica,Black Market AK-M Replica,Assault Rifle,High-End,,"64,703.00",600,30,27,2.3,55
+Manic (Black Market AK-M),Manic (Black Market AK-M),Assault Rifle,Named,Perfectly Overflowing,"64,703.00",600,30,27,2.3,55
+AUG A3-CQC,AUG A3-CQC,Assault Rifle,High-End,,"57,206.00",680,42,26,2.16,55
+Invisible Hand,Invisible Hand,Assault Rifle,Named,,"57,206.00",782,42,26,2.16,55
+The Bighorn,The Bighorn,Assault Rifle,Exotic,Big Game Hunter,"57,206.00",800,42,40,2.16,55
+Carbine 7,Carbine 7,Assault Rifle,High-End,,"49,781.00",790,30,28,2.02,55
+The Drill,The Drill,Assault Rifle,Named,Perfect Precision Strike,"49,781.00",790,30,28,2.02,55
+F2000,F2000,Assault Rifle,High-End,,"49,095.00",850,30,31,2.4,55
+F2000 Replica,F2000 Replica,Assault Rifle,High-End,,"49,095.00",850,30,31,2.4,55
+Shield Splinterer,Shield Splinterer,Assault Rifle,Named,Perfect Optimist,"49,095.00",850,30,31,2.4,55
+FAL,FAL,Assault Rifle,High-End,Unnerve,"57,646.00",700,20,35,2.14,55
+FAL SA-58,FAL SA-58,Assault Rifle,High-End,,"57,646.00",700,20,35,2.14,55
+FAL SA-58 Para,FAL SA-58 Para,Assault Rifle,High-End,,"57,646.00",700,20,35,2.14,55
+FAL SA-58 Para Replica,FAL SA-58 Para Replica,Assault Rifle,High-End,,"57,646.00",700,20,35,2.14,55
+Strega (FAL),Strega (FAL),Assault Rifle,Exotic,,"57,646.00",700,20,35,1.95,55
+FAMAS 2010,FAMAS 2010,Assault Rifle,High-End,,"45,263.00",900,30,26,2.49,55
+FAMAS 2010 Replica,FAMAS 2010 Replica,Assault Rifle,High-End,,"45,263.00",900,30,26,2.49,55
+Burn Out,Burn Out,Assault Rifle,Named,,"45,263.00",900,30,26,2.49,55
+Military G36,Military G36,Assault Rifle,High-End,,"52,552.00",750,30,35,2.34,55
+G36 C,G36 C,Assault Rifle,High-End,,"52,552.00",750,30,35,2.34,55
+G36 Enhanced,G36 Enhanced,Assault Rifle,High-End,,"52,552.00",750,30,35,2.34,55
+G36 Enhanced Replica,G36 Enhanced Replica,Assault Rifle,High-End,,"52,552.00",750,30,35,2.34,55
+Born Great (Military G36),Born Great (Military G36),Assault Rifle,Named,Perfect Stabilize,"52,552.00",750,30,35,2.34,55
+Honey Badger,Honey Badger,Assault Rifle,High-End,,"51,261.00",800,30,28,2.06,55
+Savage Wolverine,Savage Wolverine,Assault Rifle,Named,Perfectly Close & Personal,"51,261.00",800,30,28,2.06,55
+Police M4,Police M4,Assault Rifle,High-End,,"46,908.00",850,30,31,2.24,55
+Police M4 Replica,Police M4 Replica,Assault Rifle,High-End,,"46,908.00",850,30,31,2.24,55
+Pyromaniac,Pyromaniac,Assault Rifle,Named,Perfectly Ignited,"46,908.00",850,30,31,2.24,55
+Lexington,Lexington,Assault Rifle,Named,,"48,690.00",850,30,31,2.24,55
+St. Elmo's Engine (Police M4),St. Elmo's Engine (Police M4),Assault Rifle,Exotic,Actum Est,"46,908.00",850,40,31,2.24,55
+Mk16,Mk16,Assault Rifle,High-End,,"59,210.00",650,30,31,2.02,55
+SOCOM Mk16,SOCOM Mk16,Assault Rifle,High-End,,"59,210.00",650,30,31,2.02,55
+Tactical Mk 16,Tactical Mk 16,Assault Rifle,High-End,,"59,210.00",650,30,31,2.02,55
+Tactical Mk 16 Replica,Tactical Mk 16 Replica,Assault Rifle,High-End,,"59,210.00",650,30,31,2.02,55
+Military P416,Military P416,Assault Rifle,High-End,,"47,356.00",850,30,26,2.34,55
+Custom P416 G3,Custom P416 G3,Assault Rifle,High-End,,"47,356.00",850,30,26,2.34,55
+Glory Daze (Custom P416 G3),Glory Daze (Custom P416 G3),Assault Rifle,Named,Perfectly Near Sighted,"47,356.00",850,30,17,2.34,55
+Eagle Bearer,Eagle Bearer,Assault Rifle,Exotic,Eagle Strike,"47,356.00",850,30,26,2.34,55
+PDR,PDR,Assault Rifle,High-End,,"57,606.00",700,30,31,2.04,55
+Test Subject,Test Subject,Assault Rifle,Named,Perfectly In Sync,"57,606.00",700,30,31,2.04,55
+Capacitor,Capacitor,Assault Rifle,Exotic,Capacitance,"57,606.00",700,30,31,2.04,55
+Sig Sauer 556,Sig Sauer 556,Assault Rifle,High-End,,"55,922.00",700,30,28,2.17,55
+Mechanical Animal,Mechanical Animal,Assault Rifle,Named,Future Perfection,"55,922.00",700,30,28,2.17,55
+TKB-408,TKB-408,Assault Rifle,High-End,,"63,493.00",600,30,27,1.87,55
+Kingbreaker,Kingbreaker,Assault Rifle,Named,Perfect Flatline,"63,493.00",600,30,27,1.87,55
+CTAR-21,CTAR-21,Assault Rifle,High-End,,"44,793.00",900,30,32,2.39,55
+The Railsplitter,The Railsplitter,Assault Rifle,Named,Perfectly Accurate,"44,793.00",900,30,32,2.39,55
+Chameleon,Chameleon,Assault Rifle,Exotic,Adaptive Instincts,"44,670.50",900,30,20,2.4,50
