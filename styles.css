@@ -99,6 +99,9 @@
     margin: 10px;
     font-size: 14px;
     transition: background-color 0.3s;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
   }
   
   .theme-toggle:hover,
