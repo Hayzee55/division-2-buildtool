@@ -327,6 +327,7 @@
   }
   
   #itemSearch,
+  #loudoutName,
   #itemSort {
     padding: 8px;
     border-radius: 4px;
@@ -336,6 +337,7 @@
   }
   
   .light-mode #itemSearch,
+  .light-mode #loudoutName,
   .light-mode #itemSort {
     background-color: var(--background-light);
     color: var(--text-light);
@@ -660,6 +662,7 @@
     }
   
     #itemSearch,
+    #loudoutName,
     #itemSort {
       width: 100%;
     }
