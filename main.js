@@ -144,12 +144,11 @@ import {
     if (items.length === 0) {
       itemsGrid.innerHTML = '<div class="no-items">No items found. Check the CSV files for this category.</div>'
     } else {
-      // Create item cards
-      items.forEach((item) => {
-        const card = createItemCard(item)
-        itemsGrid.appendChild(card)
-      })
-    }
+        // Create item cards
+        for (const item of items) {
+          const card = await createItemCard(item) // Use await here
+          itemsGrid.appendChild(card)
+    }}
   
     // Show popup
     popupTemplate.classList.add("active")
