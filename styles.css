@@ -107,13 +107,13 @@
   
   .theme-toggle:hover,
   .shd-toggle:hover {
-    background-color: var(--primary-light);
+    background-color: var(--secondary-dark);
   }
   
   .light-mode .theme-toggle,
   .light-mode .loadout-controls,
   .light-mode .shd-toggle {
-    background-color: var(--secondary-dark);
+    background-color: var(--primary-light);
   }
   
   .light-mode .theme-toggle:hover,
