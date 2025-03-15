@@ -89,7 +89,7 @@
   
   /* Toggle button styles */
   .theme-toggle,
-  .loadout-controls
+  .loadout-controls,
   .shd-toggle {
     background-color: var(--primary-dark);
     color: white;
