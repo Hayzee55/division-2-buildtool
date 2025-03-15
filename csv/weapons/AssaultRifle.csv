@@ -1,4 +1,5 @@
 id,name,type,quality,talent,dmg,rpm,mag,optimal,reload,extraAttributes
+Blank,Blank
 ACR,ACR,Assault Rifle,High-End,,"58,886.00",650,30,31,1.91,55
 ACR-E,ACR-E,Assault Rifle,High-End,,"58,886.00",650,30,31,1.91,55
 AK-M,AK-M,Assault Rifle,High-End,,"67,161.00",600,30,27,2.26,55
