@@ -427,7 +427,7 @@ import {
   
     // Add save button
     detailsHTML += `
-          <button class="save-loadout" id="saveItemButton">
+          <button class="save-item" id="saveItemButton">
               Select Item
           </button>
       `

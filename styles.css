@@ -596,7 +596,7 @@
     align-items: center;
   }
   
-  .save-loadout {
+  .save-item {
     background-color: var(--primary-dark);
     color: white;
     border: none;
@@ -609,7 +609,7 @@
     transition: background-color 0.3s;
   }
   
-  .save-loadout:hover {
+  .save-item:hover {
     background-color: var(--primary-light);
   }
   
