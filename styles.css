@@ -582,7 +582,10 @@
   
   /* SHD styles */
   .max-shd .inventory-tile {
+    /*
     border-color: #4caf50;
+    gross dont like 
+    */
   }
   
   .no-shd .inventory-tile {
