@@ -13,23 +13,24 @@
         <img src="Icons/ui_frontend_thedivision2logo_v1.png" alt="The Division 2 Logo Dark" class="logo logo-dark">
         <img src="Icons/ui_frontend_thedivision2logo_v2.png" alt="The Division 2 Logo Light" class="logo logo-light">
     </div>
+
+    <div class="loadout-manager">
+        <div class="loadout-controls">
+          <input type="text" id="loadoutName" placeholder="Loadout Name">
+          <button id="saveLoadoutBtn">Save Loadout</button>
+          <select id="loadoutSelector"> 
+            <option value="">Select a loadout...</option>
+          </select>
+          <button id="loadLoadoutBtn">Load</button>
+          <button id="deleteLoadoutBtn">Delete</button>
+        </div>
+    </div>
+
     <div class="button-container">
         <button id="themeToggle" class="theme-toggle">Toggle Light Mode</button>
         <button id="shdToggle" class="shd-toggle">Toggle Max SHD</button>
     </div>
 </div>
-
-<div class="loadout-manager">
-    <div class="loadout-controls">
-      <input type="text" id="loadoutName" placeholder="Loadout Name">
-      <button id="saveLoadoutBtn">Save Loadout</button>
-      <select id="loadoutSelector"> 
-        <option value="">Select a loadout...</option>
-      </select>
-      <button id="loadLoadoutBtn">Load</button>
-      <button id="deleteLoadoutBtn">Delete</button>
-    </div>
-  </div>
 
     <div class="container">
         <!-- Main inventory grid with all equipment slots -->
