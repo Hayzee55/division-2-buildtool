@@ -587,6 +587,12 @@
     color: white;
     margin-top: 5px;
   }
+
+  .light-mode .add-attribute {
+    background-color: var(--lighter-light);
+    color: white;
+    margin-top: 5px;
+  }  
   
   .remove-attribute {
     background-color: #f44336;
@@ -613,6 +619,14 @@
   
   .save-item:hover {
     background-color: var(--lighter-dark);
+  }
+
+  .light-mode .save-item {
+    background-color: var(--lighter-light);
+  }
+
+  .light-mode .save-item:hover {
+    background-color: var(--darker-light);
   }
   
   /* Responsive styles */
