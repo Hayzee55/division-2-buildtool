@@ -89,7 +89,7 @@
   
   /* Toggle button styles */
   .theme-toggle,
-  .loadout-theme,
+  .loadout-manager
   .shd-toggle {
     background-color: var(--primary-dark);
     color: white;
@@ -106,19 +106,19 @@
   }
   
   .theme-toggle:hover,
-  .loadout-theme:hover,
+  .loadout-manager:hover,
   .shd-toggle:hover {
     background-color: var(--primary-light);
   }
   
   .light-mode .theme-toggle,
-  .light-mode .loadout-theme,
+  .light-mode .loadout-manager,
   .light-mode .shd-toggle {
     background-color: var(--secondary-dark);
   }
   
   .light-mode .theme-toggle:hover,
-  .light-mode .loadout-theme:hover,
+  .light-mode .loadout-manager:hover,
   .light-mode .shd-toggle:hover {
     background-color: var(--secondary-light);
   }
