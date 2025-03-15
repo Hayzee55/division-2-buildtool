@@ -92,8 +92,8 @@ async function getAllGearItems() {
 // Get all weapons
 async function getAllWeapons() {
     const weaponTypes = [
-        'AssaultRifle', 'Rifle', 'Marksman', 'SMG', 
-        'LMG', 'Shotgun', 'Pistol', 'Exotic'
+        'AssaultRifle', 'Rifle', 'Marksman Rifle', 'SMG', 
+        'LMG', 'Shotgun', 'Pistol' 
     ];
     let allWeapons = [];
     
@@ -128,8 +128,8 @@ async function getItems(type, slot = null) {
         // Filter by weapon type if needed
         if (slot) {
             const weaponTypes = {
-                primary: ['Assault Rifle', 'Rifle', 'LMG', 'Marksman Rifle'],
-                secondary: ['SMG', 'Shotgun'],
+                primary: ['Assault Rifle', 'SMG', 'Rifle', 'Shotgun', 'Marksman Rifle', 'LMG'],
+                secondary: ['Assault Rifle', 'SMG', 'Rifle', 'Shotgun', 'Marksman Rifle', 'LMG'],
                 pistol: ['Pistol']
             };
             
