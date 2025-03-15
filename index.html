@@ -124,14 +124,14 @@
         /* Inventory grid layout */
         .inventory-gui {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(4, 1fr);
             gap: 15px;
             grid-template-areas:
-                "specialization primary secondary pistol"
-                "mask backpack chest gloves"
-                "holster kneepads skill1 skill2"
-                "watch . . .";
+                "primary secondary pistol"
+                "mask chest holster"
+                "backpack gloves kneepads"
+                "specialization skill1 skill2";
         }
         
         /* Base tile styling */
