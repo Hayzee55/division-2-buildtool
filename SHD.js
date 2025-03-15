@@ -1,73 +1,83 @@
-// Function To Get And Return SHD Stats.
+// SHD.js - Handles SHD level and stats
+
+// Default SHD stats
+const defaultSHDStats = {
+  // Offensive
+  weaponDamage: 0,
+  headshotDamage: 0,
+  criticalHitChance: 0,
+  criticalHitDamage: 0,
+  reloadSpeed: 0,
+  stability: 0,
+  accuracy: 0,
+  ammoCapacity: 0,
+
+  // Defensive
+  totalArmor: 0,
+  explosiveResistance: 0,
+  hazardProtection: 0,
+  health: 0,
+
+  // Utility
+  skillHaste: 0,
+  skillDamage: 0,
+  skillDuration: 0,
+  repairSkills: 0,
+}
+
+// Max SHD stats (at SHD level 1000)
+const maxSHDStats = {
+  // Offensive
+  weaponDamage: 10,
+  headshotDamage: 20,
+  criticalHitChance: 10,
+  criticalHitDamage: 20,
+  reloadSpeed: 10,
+  stability: 10,
+  accuracy: 10,
+  ammoCapacity: 20,
+
+  // Defensive
+  totalArmor: 10,
+  explosiveResistance: 10,
+  hazardProtection: 10,
+  health: 10,
+
+  // Utility
+  skillHaste: 10,
+  skillDamage: 10,
+  skillDuration: 20,
+  repairSkills: 10,
+}
+
+// Get current SHD stats from localStorage or use defaults
 function getSHDStats() {
-    // Tries To Get SHD Stats From Storage.
-    const userValues = (() => {
-        try {return JSON.parse(localStorage.getItem("SHD-Stats") || "{}");
-        } catch (error) { console.error("Failed To Parse SHD-Stats:", error);
-            return {};  // Return Empty Object Avoiding Crash
-        }})(); //IIFE
-
-    // Default Stats Name, Type, Max Value.
-    const defaults = [
-        ["Weapon Damage", "O", 10],
-        ["Headshot Damage", "O", 20],
-        ["Critical Hit Chance", "O", 10],
-        ["Critical Hit Damage", "O", 20],
-        ["Reload Speed %", "O", 10],
-        ["Stability", "O", 10],
-        ["Accuracy", "O", 10],
-        ["Ammo Capacity", "O", 20],
-        ["Total Armor", "D", 10],
-        ["Explosive Resistance", "D", 10],
-        ["Hazard Protection", "D", 10],
-        ["Health", "D", 10],
-        ["Skill Haste", "U", 10],
-        ["Skill Damage", "U", 10],
-        ["Skill Duration", "U", 20],
-        ["Repair Skills", "U", 10],
-    ];
-
-    const isMaxStats = JSON.parse(localStorage.getItem("isMaxStats") || "false");
-
-    // Creates An Object For Each Stat.
-    return defaults.map(([name, type, max]) => ({
-        name, // Stat Name e.g Wep Damage.
-        type, // State Type e.g O = Offensive.
-        max, // Max Value e.g Wep Damage = 10.
-        value: isMaxStats ? max : 0, // True = Max Stat Value, False = 0.
-    }));
+  const isMaxStats = localStorage.getItem("isMaxStats") === "true"
+  return isMaxStats ? maxSHDStats : defaultSHDStats
 }
 
-// Updates SHD Stats in Storage.
-function updateSHDStats(levels){
-    // Creates An Object Giving Each Stat Name A Key And Each Value Is a Value.
-    const userValues = Object.fromEntries(levels.map(({ name, value, max }) => {
-        return [name, value === max ? true : false];  // Store true for max value, false otherwise
-    }));
-
-    localStorage.setItem("SHD-Stats", JSON.stringify(userValues));
+// Update SHD stats in localStorage
+function updateSHDStats(stats) {
+  localStorage.setItem("shdStats", JSON.stringify(stats))
 }
 
-// Cleans SHD Stats From Storage By Removing "Keys" Starting With SHD.
-// Redundant Keeping Incase
-/*function cleanSHDStats() {
-	Object.keys(localStorage)
-		.filter(key => key.startsWith("SHD")) // Filter Out Only The Keys Starting With "SHD".
-		.forEach(key => {
-			console.log(`Removing: ${key}`); // Log Removed Key(s).
-			localStorage.removeItem(key); // Removes Key(s) From Storage.
-		});
-	console.log("SHD keys cleared."); // Logs After SHD Keys Removed.
-}
-*/
-
-// Exports To Use Elsewhere.
-
+// Toggle between max and default SHD stats
 function toggleMaxStats() {
-    // Checks Current Value
-    const currentState = JSON.parse(localStorage.getItem("isMaxStats") || "false");
-    const newState = !currentState; // Toggles State
-    localStorage.setItem("isMaxStats", JSON.stringify(newState)); // Saves New State   
+  const isMaxStats = localStorage.getItem("isMaxStats") === "true"
+  localStorage.setItem("isMaxStats", (!isMaxStats).toString())
+
+  // Update the document body class for styling
+  if (!isMaxStats) {
+    document.body.classList.add("max-shd")
+    document.body.classList.remove("no-shd")
+  } else {
+    document.body.classList.remove("max-shd")
+    document.body.classList.add("no-shd")
+  }
+
+  return !isMaxStats
 }
 
-export { getSHDStats, updateSHDStats, toggleMaxStats};
+// Export functions
+export { getSHDStats, updateSHDStats, toggleMaxStats }
+

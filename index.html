@@ -3,354 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory System</title>
-    <style>
-        /* Base styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #1a1a1a; /* Dark Mode Background Color */
-            color: #fff; /* Nothing?? */
-            margin: 0;
-            padding: 20px;
-        }
-        
-        /* Logo styles */
-        .logo-container {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 200px;
-            height: 50px;
-            z-index: 100;
-        }
-        
-        .logo {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            display: none; /* Hidden by default */
-        }
-        
-        /* Show appropriate logo based on theme */
-        .dark-mode .logo-dark {
-            display: block;
-        }
-        
-        .light-mode .logo-light {
-            display: block;
-        }
-        
-        /* Theme toggle button */
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 100;
-            padding: 10px 15px;
-            background-color: #333; /* Dark Mode Theme Button Color */
-            color: #fff; /* Dark Mode Theme Button Text Color */
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        
-        .light-mode .theme-toggle {
-            background-color: #bbb; /* Light Mode Theme Button Color */
-            color: #333; /* Light mode Theme Button Text Color */
-        }
-        
-        .theme-toggle:hover {
-            background-color: #555; /* Dark Mode Color Change When Hovering Over Theme Button */
-        }
-        
-        .light-mode .theme-toggle:hover {
-            background-color: #a2a2a2; /* Light Mode Color Change When Hovering Over Theme Button */
-        }
-
-        .shd-toggle {
-            position: fixed;
-            top: 20px;
-            right: 180px;
-            z-index: 100;
-            padding: 10px 15px;
-            background-color: #333; /* Dark Mode Theme Button Color */
-            color: #fff; /* Dark Mode Theme Button Text Color */
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        
-        .light-mode .shd-toggle {
-            background-color: #bbb; /* Light Mode Theme Button Color */
-            color: #333; /* Light mode Theme Button Text Color */
-        }
-        
-        .shd-toggle:hover {
-            background-color: #555; /* Dark Mode Color Change When Hovering Over Theme Button */
-        }
-        
-        .light-mode .shd-toggle:hover {
-            background-color: #a2a2a2; /* Light Mode Color Change When Hovering Over Theme Button */
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin: 40px auto;
-        }
-        
-        /* Light mode styles */
-        .light-mode {
-            background-color: #f5f5f5; /* Light Mode Background Color */
-            color: #bbb; /* Nothing? */
-        }
-        
-        .light-mode .inventory-tile {
-            background-color: #bbb; /* Light Mode Tile Color */
-            border-color: #333; /* Light Mode Tile Border Color */
-        }
-        
-        .light-mode .inventory-tile::before {
-            filter: none; /* No inversion needed for light mode */
-        }
-        
-        .light-mode .tile-name {
-            color: #333; /* Light Mode Tile Text Color */
-        }
-
-        /* Inventory grid layout */
-        .inventory-gui {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(4, 1fr);
-            gap: 15px;
-            grid-template-areas:
-                "primary secondary pistol"
-                "mask backpack skill1"
-                "chest gloves skill2"
-                "holster kneepads specialization";
-        }
-        
-        /* Base tile styling */
-        .inventory-tile {
-            background-color: #333; /* Dark Mode Tile Color */
-            border: 2px solid #555; /* Dark Mode Tile Border Color & Both Themes Border Widths */
-            border-radius: 5px; /* Both Themes border Radius */
-            height: 120px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.2s;
-            padding: 10px;
-        }
-
-        /* Spritesheet icon setup - creates the icon element */
-        .inventory-tile::before {
-            content: '';
-            width: 64px; 
-            height: 64px;
-            background-image: url('Icons/ui_loot_spritesheet.png'); /* Default Spritesheet */
-            background-size: 512px 512px; /* 8x8 grid of 64px icons */
-            background-repeat: no-repeat;
-            filter: invert(1); /* Makes black icons white */
-        }
-        
-        /* Icon positions - each position is calculated as -64px * column and -64px * row */
-        .primary::before {
-            background-image: url('Icons/ui_hud_notifications.png'); /* Specific Spritesheet */
-            background-size: 512px 512px; 
-            background-position: -128px -128px; /* Row 3, Icon 3 */
-        }
-        
-        .secondary::before {
-            background-image: url('Icons/ui_hud_notifications.png');
-            background-size: 512px 512px;
-            background-position: 0px -128px; /* Row 3, Icon 1 */
-        }
-
-        .pistol::before {
-            background-image: url('Icons/ui_hud_notifications.png');
-            background-size: 512px 512px;
-            background-position: -320px -128px; /* Row 3, Icon 6 */
-        }
-
-        .holster::before {
-            background-position: 0 -64px; /* Row 2, Icon 1 */
-        }
-        
-        .chest::before {
-            background-position: -64px -64px; /* Row 2, Icon 2 */
-        }
-        
-        .backpack::before {
-            background-position: -128px -64px; /* Row 2, Icon 3 */
-        }
-        
-        .mask::before {
-            background-position: -192px -64px; /* Row 2, Icon 4 */
-        }
-        
-        .gloves::before {
-            background-position: -256px -64px; /* Row 2, Icon 5 */
-        }
-        
-        .kneepads::before {
-            background-position: -320px -64px; /* Row 2, Icon 6 */
-        }
-        
-        .skill1::before, .skill2::before {
-            background-position: -448px -64px; /* Row 2, Icon 8 */
-        }
-        
-        .specialization::before {
-            background-position: 0 -384px; /* Row 7, Icon 1 */
-        }
-        
-        /* Hover and active states */
-        .inventory-tile:hover {
-            background-color: rgba(70, 70, 70, 0.8); /* Dark Mode Tile Color When Hovering */
-            transform: translateY(-2px); /* Both Themes Hover Movement */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Both Theme Hover Shadow */
-        }
-        
-        .light-mode .inventory-tile:hover {
-            background-color: rgba(200, 200, 200, 0.8); /* Light Mode Tile Color When Hovering */
-        }
-        
-        .inventory-tile:active {
-            transform: translateY(0);
-        }
-        
-        .tile-name {
-            position: absolute;
-            bottom: 5px;
-            font-size: 12px;
-            color: #ccc; /* Dark Mode Tile Text Color */
-            text-transform: uppercase;
-        }
-        
-        /* Popup overlay - covers the entire screen */
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8); /* Background Color When Pop Up Open */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden; /* Hides By Default = Good Thing */
-            transition: opacity 0.3s, visibility 0.3s;
-        }
-        
-        .popup-overlay.active {
-            opacity: 1;
-            visibility: visible; /* Unhides When Item Clicked */
-        }
-        
-        /* Popup content styling */
-        .popup {
-            background-color: #8B3E2F; /* Dark Mode Pop Up Menu Color */
-            color: #fff; /* Dark Mode Pop Up Menu Text Color */
-            padding: 25px;
-            border-radius: 8px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
-            transform: scale(0.8);
-            transition: transform 0.3s;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4); /* Dark Mode Pop Up Menu Shadow */
-        }
-        
-        .popup-overlay.active .popup {
-            transform: scale(1);
-        }
-        
-        /* Close button */
-        .popup-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #fff; /* Pop Up Menu Close Button (X) Color */ 
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
-        }
-        
-        /* Item details styling */
-        .item-name {
-            font-size: 24px;
-            margin: 0 0 5px 0;
-        }
-        
-        .item-type {
-            font-size: 16px;
-            color: #ddd; /* Color Of Item Type (Maybe Unnecessary) */
-            margin: 0 0 20px 0;
-        }
-        
-        .item-talent {
-            margin: 0 0 15px 0;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.2); /* Pop Up Menu Talent Box Color */
-            border-radius: 4px;
-        }
-        
-        .item-talent-name {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .item-description {
-            line-height: 1.6;
-        }
-                /* Light mode popup styles */
-        .light-mode .popup-overlay {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-
-        .light-mode .popup {
-            background-color: #8B3E2F; /* Light Mode Pop Up Menu */
-            color: #fff; /* Light Mode Pop Up Menu Text Color */
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4); /* Light Mode Pop Up Menu Shadow */
-        }
-
-        .light-mode .popup-close {
-            color: #fff; /* Light Mode Pop Up Menu Close Color (X) */
-        }
-
-        .light-mode .item-type {
-            color: #fff; /* Light Mode Pop Up Menu Item Type (Useless again) */
-        }
-
-        .light-mode .item-talent {
-            background:  rgba(0, 0, 0, 0.2); /* Light Mode Pop Up Menu Talent Box Color */
-        }
-</style>
+    <title>Division 2 Loadout Builder</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="dark-mode">
     <!-- Logo container -->
     <div class="logo-container">
-    <img src="Icons/ui_frontend_thedivision2logo_v1.png" alt="The Division 2 Logo Dark" class="logo logo-dark">
-    <img src="Icons/ui_frontend_thedivision2logo_v2.png" alt="The Division 2 Logo Light" class="logo logo-light">
+        <img src="Icons/ui_frontend_thedivision2logo_v1.png" alt="The Division 2 Logo Dark" class="logo logo-dark">
+        <img src="Icons/ui_frontend_thedivision2logo_v2.png" alt="The Division 2 Logo Light" class="logo logo-light">
     </div>
    
     <!-- Theme toggle button -->
@@ -360,220 +20,78 @@
     <div class="container">
         <!-- Main inventory grid with all equipment slots -->
         <div class="inventory-gui" id="inventory-gui">
-            <div class="inventory-tile primary" data-item="primary">
+            <div class="inventory-tile primary" data-item="primary" data-type="weapons">
                 <span class="tile-name">Primary Weapon</span>
             </div>
-            <div class="inventory-tile secondary" data-item="secondary">
+            <div class="inventory-tile secondary" data-item="secondary" data-type="weapons">
                 <span class="tile-name">Secondary Weapon</span>
             </div>
-            <div class="inventory-tile pistol" data-item="pistol">
+            <div class="inventory-tile pistol" data-item="pistol" data-type="weapons">
                 <span class="tile-name">Sidearm</span>
             </div>
-            <div class="inventory-tile mask" data-item="mask">
+            <div class="inventory-tile mask" data-item="mask" data-type="gearItems">
                 <span class="tile-name">Mask</span>
             </div>
-            <div class="inventory-tile backpack" data-item="backpack">
+            <div class="inventory-tile backpack" data-item="backpack" data-type="gearItems">
                 <span class="tile-name">Backpack</span>
             </div>
-            <div class="inventory-tile skill1" data-item="skill1">
+            <div class="inventory-tile skill1" data-item="skill1" data-type="skills">
                 <span class="tile-name">Skill 1</span>
             </div>
-            <div class="inventory-tile chest" data-item="chest">
+            <div class="inventory-tile chest" data-item="chest" data-type="gearItems">
                 <span class="tile-name">Chest</span>
             </div>
-            <div class="inventory-tile gloves" data-item="gloves">
+            <div class="inventory-tile gloves" data-item="gloves" data-type="gearItems">
                 <span class="tile-name">Gloves</span>
             </div>
-            <div class="inventory-tile skill2" data-item="skill2">
+            <div class="inventory-tile skill2" data-item="skill2" data-type="skills">
                 <span class="tile-name">Skill 2</span>
             </div>
-            <div class="inventory-tile holster" data-item="holster">
+            <div class="inventory-tile holster" data-item="holster" data-type="gearItems">
                 <span class="tile-name">Holster</span>
             </div>
-            <div class="inventory-tile kneepads" data-item="kneepads">
+            <div class="inventory-tile kneepads" data-item="kneepads" data-type="gearItems">
                 <span class="tile-name">Kneepads</span>
             </div>
-            <div class="inventory-tile specialization" data-item="specialization">
+            <div class="inventory-tile specialization" data-item="specialization" data-type="specializations">
                 <span class="tile-name">Specialization</span>
             </div>
         </div>
     </div>
     
-    <!-- Popup template - hidden by default, shown when an item is clicked -->
+    <!-- Popup template with item selection -->
     <div id="popupTemplate" class="popup-overlay">
         <div class="popup">
             <button class="popup-close" aria-label="Close popup">&times;</button>
-            <h2 class="item-name">Item Name</h2>
-            <p class="item-type">Item Type</p>
-            <div class="item-talent">
-                <div class="item-talent-name">Talent: <span>Talent Name</span></div>
+            <h2 class="item-name">Item Selection</h2>
+            <div class="item-type-header">
+                <span id="currentItemType">Item Type</span>
+                <div class="item-filters">
+                    <input type="text" id="itemSearch" placeholder="Search items...">
+                    <select id="itemSort">
+                        <option value="name">Sort by Name</option>
+                        <option value="rarity">Sort by Rarity</option>
+                        <option value="brand">Sort by Brand</option>
+                    </select>
+                </div>
             </div>
-            <div class="item-description">
-                Item description will appear here when data is loaded.
+            <div class="items-grid" id="itemsGrid">
+                <!-- Items will be populated here dynamically -->
+            </div>
+            <div class="selected-item-details" id="selectedItemDetails">
+                <!-- Selected item details will be shown here -->
             </div>
         </div>
     </div>
 
-    <script type="module">
-        // Import the functions from SHD.js
-        import { getSHDStats, updateSHDStats, toggleMaxStats } from './SHD.js';
-        
-        // Make the toggleMaxStats function available globally
-        window.toggleMaxStats = toggleMaxStats;
-    </script>
+    <!-- Import data handling module first -->
+    <script type="module" src="data.js"></script>
     
-    <script>
-        // Get references to DOM elements
-        const inventoryTiles = document.querySelectorAll('.inventory-tile');
-        const popupTemplate = document.getElementById('popupTemplate');
-        const closeButton = popupTemplate.querySelector('.popup-close');
-        const body = document.body;
-        const themeToggle = document.getElementById('themeToggle');
-        const shdToggle = document.getElementById('shdToggle');
-        
-        // Set initial mode
-        function initializeMode() {
-            // Theme mode initialization
-            if (localStorage.getItem("darkMode") === "disabled") {
-                body.classList.remove('dark-mode');
-                body.classList.add('light-mode');
-                themeToggle.textContent = "Toggle Dark Mode";
-            } else {
-                body.classList.add('dark-mode');
-                body.classList.remove('light-mode');
-                themeToggle.textContent = "Toggle Light Mode";
-            }
-            
-            // SHD mode initialization
-            const isMaxStats = localStorage.getItem("isMaxStats") === "true";
-            if(isMaxStats) {
-                body.classList.add('max-shd');
-                body.classList.remove('no-shd');
-                shdToggle.textContent = "Toggle No SHD";
-            } else {
-                body.classList.remove('max-shd');
-                body.classList.add('no-shd');
-                shdToggle.textContent = "Toggle Max SHD";
-            }
-        }
-        
-        // Toggle between dark and light mode
-        function toggleDarkMode() {
-            body.classList.toggle('light-mode');
-            body.classList.toggle('dark-mode');
-
-            if (body.classList.contains('light-mode')) {
-                localStorage.setItem('darkMode', 'disabled');
-                themeToggle.textContent = "Toggle Dark Mode";
-            } else {
-                localStorage.removeItem('darkMode');
-                themeToggle.textContent = "Toggle Light Mode";
-            }
-        }
-        
-        function toggleSHDMode() {
-            // Call the toggleMaxStats function from SHD.js
-            if (window.toggleMaxStats) {
-                window.toggleMaxStats();
-            }
-            
-            // Get the updated state from localStorage
-            const isMaxStats = localStorage.getItem("isMaxStats") === "true";
-            
-            // Update UI based on the new state
-            if (isMaxStats) {
-                body.classList.add('max-shd');
-                body.classList.remove('no-shd');
-                shdToggle.textContent = "Toggle No SHD";
-            } else {
-                body.classList.remove('max-shd');
-                body.classList.add('no-shd');
-                shdToggle.textContent = "Toggle Max SHD";
-            }
-        }       
-
-        // Add event listener to toggle buttons
-        themeToggle.addEventListener('click', toggleDarkMode);
-        shdToggle.addEventListener('click', toggleSHDMode);
-        
+    <!-- Import SHD.js module -->
+    <script type="module" src="SHD.js"></script>
     
-        // Add click event listeners to all inventory tiles
-        inventoryTiles.forEach(tile => {
-            tile.addEventListener('click', () => {
-                const itemType = tile.getAttribute('data-item');
-                const tileName = tile.querySelector('.tile-name').textContent;
-                
-                // Show popup with placeholder data
-                // This is where you would load actual data from CSV
-                showItemPopup({
-                    name: tileName,
-                    type: itemType.charAt(0).toUpperCase() + itemType.slice(1),
-                    talent: "No data loaded",
-                    description: "Gotta Make CSVs :("
-                });
-            });
-        });
-        
-        // Close popup when clicking the close button
-        closeButton.addEventListener('click', hidePopup);
-        
-        // Close popup when clicking outside the popup content
-        popupTemplate.addEventListener('click', (e) => {
-            if (e.target === popupTemplate) {
-                hidePopup();
-            }
-        });
-        
-        // Close popup with ESC key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                hidePopup();
-            }
-        });
-        
-        // Function to show popup with item data
-        function showItemPopup(item) {
-            // Update popup content with item data
-            popupTemplate.querySelector('.item-name').textContent = item.name;
-            popupTemplate.querySelector('.item-type').textContent = item.type;
-            popupTemplate.querySelector('.item-talent-name span').textContent = item.talent;
-            popupTemplate.querySelector('.item-description').textContent = item.description;
-            
-            // Show popup and prevent scrolling
-            popupTemplate.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        
-        // Function to hide popup
-        function hidePopup() {
-            popupTemplate.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-        
-        // Check if spritesheet is loading correctly
-        window.addEventListener('load', function() {
-            // Create a test image to check if the spritesheet is loading
-            const testImg = new Image();
-            testImg.onerror = function() {
-                console.error('Error loading spritesheet. Using fallback styles.');
-                document.querySelectorAll('.inventory-tile').forEach(tile => {
-                    // Apply fallback styles if spritesheet fails to load
-                    tile.style.backgroundColor = '#444'; // Should Match Styles But Lazy
-                    tile.style.color = '#fff'; // // Should Match Styles But Lazy
-                });
-            };
-            testImg.src = 'Icons/ui_loot_spritesheet.png'; // Main Spritesheet Image
-        });
-        
-        // Initialize theme on page load
-        document.addEventListener('DOMContentLoaded', initializeMode);
-        
-        // Run initialization immediately in case DOM is already loaded
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initializeMode);
-        } else {
-            initializeMode();
-        }
-    </script>
+    <!-- Then import the main script -->
+    <script type="module" src="main.js"></script>
 </body>
 </html>
+
