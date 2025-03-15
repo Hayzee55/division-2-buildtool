@@ -126,6 +126,11 @@
     grid-template-rows: repeat(4, 1fr);
     gap: 15px;
     margin-top: 20px;
+    grid-template-areas:
+    "primary secondary pistol"
+    "mask backpack skill1"
+    "chest gloves skill2"
+    "holster kneepads specialization";
   }
   
   /* Make item selection boxes darker/brighter */
@@ -165,6 +170,8 @@
     border-radius: 8px;
     padding: 15px;
     min-height: 100px;
+    width: auto;  /* Allow the tile to resize based on content */
+    height: auto; 
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -173,14 +180,76 @@
     transition: all 0.3s;
     position: relative;
     overflow: hidden;
-  }
+    min-width: 80px; /* Prevent shrinking too small */
+    }
   
+  .inventory-tile::before{
+    content: '';
+    width: 50%;
+    height: 50%;
+    background-image: url('Icons/ui_loot_spritesheet.png');
+    background-size: 512px 512px;
+    background-repeat: no-repeat;
+    filter: invert(1);
+    }    
+
+   /* Icon positions - each position is calculated as -64px * column and -64px * row */
+   .primary::before {
+    background-image: url('Icons/ui_hud_notifications.png'); /* Specific Spritesheet */
+    background-size: 512px 512px; 
+    background-position: -128px -128px; /* Row 3, Icon 3 */
+    }
+
+    .secondary::before {
+        background-image: url('Icons/ui_hud_notifications.png'); /* Specific Spritesheet */
+        background-size: 512px 512px;
+        background-position: 0px -128px; /* Row 3, Icon 1 */
+    }
+
+    .pistol::before {
+        background-image: url('Icons/ui_hud_notifications.png'); /* Specific Spritesheet */
+        background-size: 512px 512px;
+        background-position: -320px -128px; /* Row 3, Icon 6 */
+    }
+
+    .holster::before {
+        background-position: 0 -64px; /* Row 2, Icon 1 */
+    }
+
+    .chest::before {
+        background-position: -64px -64px; /* Row 2, Icon 2 */
+    }
+
+    .backpack::before {
+        background-position: -128px -64px; /* Row 2, Icon 3 */
+    }
+
+    .mask::before {
+        background-position: -192px -64px; /* Row 2, Icon 4 */
+    }
+
+    .gloves::before {
+        background-position: -256px -64px; /* Row 2, Icon 5 */
+    }
+
+    .kneepads::before {
+        background-position: -320px -64px; /* Row 2, Icon 6 */
+    }
+
+    .skill1::before, .skill2::before {
+        background-position: -448px -64px; /* Row 2, Icon 8 */
+    }
+
+    .specialization::before {
+        background-position: 0 -384px; /* Row 7, Icon 1 */
+    }   
+
   .tile-name {
     font-size: 16px;
     font-weight: bold;
     text-align: center;
     z-index: 1;
-  }
+    }
   
   /* Popup styles */
   .popup-overlay {
