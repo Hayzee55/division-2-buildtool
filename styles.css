@@ -5,8 +5,8 @@
     --text-dark: #e0e0e0;
     --text-light: #333333;
     --primary-dark: #ff5722;
-    --primary-light: #ff7043;
-    --secondary-dark: #2196f3;
+    --primary-light: #2196f3;
+    --secondary-dark: #ff7043;
     --secondary-light: #42a5f5;
     --tile-dark: #2d2d2d;
     --tile-light: #ffffff;
@@ -666,6 +666,6 @@
   .light-mode.no-shd .inventory-tile {
     border-color: var(--border-light);
   }
-  */
+ */
   
   
