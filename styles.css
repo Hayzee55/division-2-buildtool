@@ -328,6 +328,10 @@
   
   #itemSearch,
   #loadoutName,
+  #saveLoadoutBtn,
+  #loadoutSelector,
+  #loadLoadoutBtn,
+  #deleteLoadoutBtn,
   #itemSort {
     padding: 8px;
     border-radius: 4px;
@@ -338,6 +342,10 @@
   
   .light-mode #itemSearch,
   .light-mode #loadoutName,
+  .light-mode #saveLoadoutBtn,
+  .light-mode #loadoutSelector,
+  .light-mode #loadLoadoutBtn,
+  .light-mode #deleteLoadoutBtn,
   .light-mode #itemSort {
     background-color: var(--background-light);
     color: var(--text-light);
@@ -663,6 +671,10 @@
   
     #itemSearch,
     #loadoutName,
+    #saveLoadoutBtn,
+    #loadoutSelector,
+    #loadLoadoutBtn,
+    #deleteLoadoutBtn,
     #itemSort {
       width: 100%;
     }
