@@ -4,10 +4,10 @@
     --background-light: #f5f5f5;
     --text-dark: #e0e0e0;
     --text-light: #333333;
-    --primary-dark: #ff5722;
-    --primary-light: #2196f3;
-    --secondary-dark: #ff7043;
-    --secondary-light: #42a5f5;
+    --darker-dark: #ff5722;
+    --darker-light: #2196f3;
+    --lighter-dark: #ff7043;
+    --lighter-light: #42a5f5;
     --tile-dark: #2d2d2d;
     --tile-light: #ffffff;
     --border-dark: #444444;
@@ -91,7 +91,7 @@
   .theme-toggle,
   .loadout-controls,
   .shd-toggle {
-    background-color: var(--primary-dark);
+    background-color: var(--darker-dark);
     color: white;
     border: none;
     padding: 10px 15px;
@@ -107,18 +107,18 @@
   
   .theme-toggle:hover,
   .shd-toggle:hover {
-    background-color: var(--secondary-dark);
+    background-color: var(--lighter-dark);
   }
   
   .light-mode .theme-toggle,
   .light-mode .loadout-controls,
   .light-mode .shd-toggle {
-    background-color: var(--primary-light);
+    background-color: var(--lighter-light);
   }
   
   .light-mode .theme-toggle:hover,
   .light-mode .shd-toggle:hover {
-    background-color: var(--secondary-light);
+    background-color: var(--darker-light); /* want to it get darker when already light */
   }
   
   /* Inventory grid styles */
@@ -159,13 +159,13 @@
   
   /* Make selected items more visible */
   .inventory-tile.selected {
-    border-color: var(--primary-dark);
-    box-shadow: 0 0 10px var(--primary-dark);
+    border-color: var(--darker-dark);
+    box-shadow: 0 0 10px var(--darker-dark);
   }
   
   .light-mode .inventory-tile.selected {
-    border-color: var(--primary-light);
-    box-shadow: 0 0 10px var(--primary-light);
+    border-color: var(--lighter-light);
+    box-shadow: 0 0 10px var(--lighter-light);
   }
   
   .inventory-tile {
@@ -383,7 +383,7 @@
   }
   
   .item-card.selected {
-    border: 2px solid var(--primary-dark);
+    border: 2px solid var(--darker-dark);
   }
   
   .item-card-header {
@@ -504,11 +504,11 @@
   .item-detail-header {
     font-weight: bold;
     margin-bottom: 10px;
-    color: var(--primary-dark);
+    color: var(--darker-dark);
   }
   
   .light-mode .item-detail-header {
-    color: var(--primary-light);
+    color: var(--lighter-light);
   }
   
   .stat-input {
@@ -583,7 +583,7 @@
   }
   
   .add-attribute {
-    background-color: var(--secondary-dark);
+    background-color: var(--lighter-dark);
     color: white;
     margin-top: 5px;
   }
@@ -599,7 +599,7 @@
   }
   
   .save-item {
-    background-color: var(--primary-dark);
+    background-color: var(--darker-dark);
     color: white;
     border: none;
     padding: 10px 15px;
@@ -612,7 +612,7 @@
   }
   
   .save-item:hover {
-    background-color: var(--secondary-dark);
+    background-color: var(--lighter-dark);
   }
   
   /* Responsive styles */
